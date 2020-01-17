@@ -25,8 +25,9 @@ const Home = () => {
    return (
       <Container>
          <Header />
-         <Tabs locked={true} renderTabBar={() =>
-            <ScrollableTab underlineStyle={{ backgroundColor: "green" }} style={{ backgroundColor: "#fff", paddingLeft: 16 }} />}>
+         {/* <Tabs locked={true} renderTabBar={() =>
+            <ScrollableTab underlineStyle={{ backgroundColor: "green" }} 
+            style={{ backgroundColor: "#fff", paddingLeft: 16 }} />}>
             <Tab heading={
                <TabHeading style={{ backgroundColor: "#fff" }}>
                   <Text style={{ color: "gray" }}>All</Text>
@@ -48,8 +49,9 @@ const Home = () => {
                </TabHeading>
             } />
          </Tabs>
-         <ListProduct />
-         <Footer />
+            */}
+         <ListProduct /> 
+         {/* <Footer /> */}
       </Container>
    );
 };

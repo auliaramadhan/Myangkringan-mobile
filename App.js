@@ -4,36 +4,40 @@ import React, { Component, Fragment } from 'react';
 import Playstore from './src/screens/Playstore'
 import Dashboard from './src/screens/Dashboard'
 import { Provider } from 'react-redux';
-import { store,persistor } from './src/redux/store'
+import { store, persistor } from './src/redux/store'
 import { PersistGate } from 'redux-persist/integration/react';
 import { createStackNavigator } from 'react-navigation-stack';
-import {Home, Login, Profile, Restaurant,Register,DetailProduct} from './src/screens/';
-// import { StyleSheet, } from 'react-native';
-// import { Icon, Container, Content, Text, Row, Item, Input, Tabs, Tab, TabHeading, ScrollableTab, Footer, FooterTab, Button, Header } from 'native-base'
+import { createAppContainer } from 'react-navigation';
+import { Home, Login, Profile, Restaurant, Register, DetailProduct } from './src/screens/';
+import Router from './src/config/router'
+// const AppNavigator = createStackNavigator({
+//   Home: { screen: Home },
+//   Dashboard: { screen: Dashboard },
+//   Login: { screen: Login },
+//   Profile: { screen: Profile },
+//   Restaurant: { screen: Restaurant },
+//   Register: { screen: Register },
+//   DetailProduct: { screen: DetailProduct },
+// },
+// {
+//   initialRouteName:'Login',
+//   headerMode:'none'
+// });
 
-const AppNavigator = createStackNavigator({
-  Home: { screen: Home },
-  Login: { screen: Login},
-  Profile: { screen: Profile},
-  Restaurant: { screen: Restaurant},
-  Register: { screen: Register},
-  DetailProduct: { screen: DetailProduct},
-});
+// const AppContainer = createAppContainer(AppNavigator);
 
 
 export default class App extends Component {
   render() {
     return (
-      <Text>ha</Text>
-        // <Fragment>
-        //   <Home /> 
-        // </Fragment>
+      <>
+      
+        <Provider store={store}>
+          <PersistGate persistor={persistor} >
+            <Router />
+          </PersistGate>
+        </Provider>
+      </>
     );
   }
 }
-
-{/* <Provider store={store}>
-        <PersistGate persistor={persistor} >
-          <AppNavigator />
-        </PersistGate>
-      </Provider> */}

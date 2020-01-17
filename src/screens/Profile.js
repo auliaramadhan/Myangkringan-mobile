@@ -34,8 +34,8 @@ const style = StyleSheet.create({
 function Profile(props) {
       const [date, setDate] = useState(0)   
     return (
-      <Container>
-        <View style={{ padding: 16, flex: 1, alignContent: 'center' }} >
+      <Container >
+        <Content padder contentContainerStyle={{flexGrow:1}}>
           <View style={style.title}>
             <Image source={logo} style={{ height: 150 }} resizeMode='contain' />
           </View>
@@ -65,13 +65,10 @@ function Profile(props) {
             placeHolderTextStyle={{ color: "#d3d3d3" }}
             onDateChange={setDate}
             />
-            <Text>
-              Date: {date.toString().substr(4, 12)}
-            </Text>
+              </Item>
             <Item rounded block style={{ marginBottom: 20 }} >
-              <Input placeholder="City" value={date.toString().substr(4, 12)}
+              <Input placeholder="Date" value={date.toString().substr(4, 12)}
                 style={{ textAlign: 'center' }} disabled />
-            </Item>
             </Item>
             <Label style={style.textmiddlePage} >City</Label>
             <Item rounded block style={{ marginBottom: 20 }} >
@@ -84,14 +81,15 @@ function Profile(props) {
                 style={{ textAlign: 'center' }} />
             </Item>
 
-            <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50, display:'none' }}>
+            <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50, display:'flex' }}>
               <Text> Save </Text>
             </Button>
             <Button rounded bordered warning block style={{ paddingBottom: 4, marginHorizontal: 50, display:'none' }}>
               <Text> Edit </Text>
             </Button>
           </Form>
-        </View>
+        </Content>
+        
       </Container>
     );
 }

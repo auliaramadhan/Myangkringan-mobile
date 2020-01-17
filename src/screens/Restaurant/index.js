@@ -44,7 +44,7 @@ const Restaurant = () => {
                </ListItem>
             </List>
          </Content>
-         <Footer />
+         {/* <Footer /> */}
       </Container>
    );
 };

@@ -16,7 +16,7 @@ const style = StyleSheet.create({
 
 const Home = () => {
    return (
-      <Header searchBar style={{backgroundColor:'#eee'}} >
+      <Header searchBar style={{backgroundColor:'#fff'}} >
          <Left>
             <Button transparent>
                <Icon name='arrow-back' style={{ color: 'black' }} />
@@ -43,24 +43,4 @@ const Home = () => {
       </Header>
    );
 };
-// <Header hasTabs searchBar style={{ backgroundColor: '#fff' }}>
-//    <Left>
-//       <Button bordered primary>
-//          <Text>Search</Text>
-//       </Button>
-//    </Left>
-//    <Body>
-//       <Item rounded bordered >
-//          <Icon name="ios-search" />
-//          <Input placeholder="Search" />
-//          <Icon name="ios-people" />
-//       </Item>
-//    </Body>
-//    <Right>
-//       <Button transparent>
-//          <Text>Search</Text>
-//       </Button>
-//    </Right>
-// </Header>
-
 export default Home;

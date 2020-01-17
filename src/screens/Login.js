@@ -34,8 +34,8 @@ const style = StyleSheet.create({
 export default class Login extends Component {
   render() {
     return (
-      <Container>
-        <View style={{ padding: 16, flex: 1, alignContent: 'center' }} >
+      <Container  >
+        <Content padder contentContainerStyle={{flexGrow:1}}>
           <View style={style.title}>
             <Image source={logo} style={{ height: 150 }} resizeMode='contain' />
           </View>
@@ -59,10 +59,10 @@ export default class Login extends Component {
               style={{ marginTop: 20 }}><Text> Forgot Password </Text>
             </Button>
           </Form>
-        </View>
         <Button block primary transparent
           style={{ marginTop: 'auto' }}><Text> Dont have Account? Sign Here </Text>
         </Button>
+          </Content>
       </Container>
     );
   }
