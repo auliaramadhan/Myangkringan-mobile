@@ -1,11 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Icon, Container, Content, Text, Row, Item, Input, Tabs, 
-   Tab, TabHeading, ScrollableTab,  FooterTab, Button, Badge } from 'native-base'
+import {
+   Icon, Container, Content, Text, Row, Item, Input, Tabs,
+   Tab, TabHeading, ScrollableTab, FooterTab, Button, Badge, List, ListItem, Left, Thumbnail, Body, Right
+} from 'native-base'
+import logo from '../../../assets/img/logo.png'
 
-import Footer from './Footer'
+
+import Footer from '../Component/Footer'
 import Header from './Header'
+import ListProduct from '../Component/ListProduct';
 
 const style = StyleSheet.create({
    name: {
@@ -21,8 +26,9 @@ const Home = () => {
    return (
       <Container>
          <Header />
-         <Tabs tabBarUnderlineStyle={{backgroundColor:'red'}}>
-          <Tab heading="Tab1" >
+         {/* <Tabs tabContainerStyle={{backgroundColor:'#000'}} 
+         tabBarUnderlineStyle={{backgroundColor:'red'}}>
+          <Tab heading="Tab1"  >
             <Text >halo semua</Text>
           </Tab>
           <Tab heading="Tab2">
@@ -31,9 +37,22 @@ const Home = () => {
           <Tab heading={ <TabHeading><Icon name="apps" /></TabHeading>}>
             <Text >halo semua</Text>
           </Tab>
-        </Tabs>
-         {/* <Content>
+        </Tabs> */}
+         {/* <Content padder>
+            <ListProduct />
+            <List style={{ display: 'flex' }} >
+               <ListItem style={{ flex: .4 }}>
+                  <Text>Simon Mignolet</Text>
+               </ListItem>
+               <ListItem style={{ flexBasis: 40 }}>
+                  <Text>Nathaniel Clyne</Text>
+               </ListItem>
+               <ListItem>
+                  <Text>Dejan Lovren</Text>
+               </ListItem>
+            </List>
          </Content> */}
+         <ListProduct />
          <Footer />
       </Container>
    );

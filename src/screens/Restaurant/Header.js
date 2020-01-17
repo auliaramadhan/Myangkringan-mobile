@@ -23,7 +23,7 @@ const Home = () => {
             </Button>
          </Left>
          <Body>
-            <Title style={{color:'darkslategray'}} >Home</Title>
+            <Title style={{color:'gray'}} >Home</Title>
          </Body>
          <Right>
 
@@ -34,7 +34,7 @@ const Home = () => {
                <Icon name='search' type='MaterialIcons' style={{ color: 'black' }} />
             </Button>
             <Button transparent >
-               <Badge  style={{ position: 'absolute', right: 0,scaleX: 0.7, scaleY: 0.7 }}>
+               <Badge style={{ position: 'absolute', right: 0 }}>
                   <Text style={{ fontSize: 10 }}>22</Text>
                </Badge>
                <Icon name="cart" style={{ color: "black" }} />

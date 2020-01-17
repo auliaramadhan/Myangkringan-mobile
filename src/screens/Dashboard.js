@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, Fragment } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Image, ScrollView } from 'react-native';
-import reactimg from '../../assets/img/react.png';
+import reactimg from '../assets/img/react.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const style = StyleSheet.create({
@@ -76,7 +76,7 @@ export default class Dashboard extends Component {
             <Image source={reactimg} style={style.photo} />
             <View>
               <Text style={style.title}>Aulia Ramadhan</Text>
-              <Text style={style.backgorundtitle}>Fullstack developer</Text>
+              <Text s tyle={style.backgorundtitle}>Fullstack developer</Text>
             </View>
           </View>
           <View>
