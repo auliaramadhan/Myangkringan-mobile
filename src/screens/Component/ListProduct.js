@@ -59,7 +59,7 @@ const ListProduct = () => {
             </CardItem>
           </Card>)}
             </View> 
-         </Content>
+            </Content>
    );
 };
 

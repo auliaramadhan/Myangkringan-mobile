@@ -8,7 +8,7 @@ import {
 import logo from '../../assets/img/logo.png'
 
 
-import Footer from './Footer'
+import Footer from '../Component/Footer'
 import Header from './Header'
 
 const style = StyleSheet.create({
@@ -26,24 +26,11 @@ const Restaurant = () => {
       <Container>
          <Header />
          <Content padder>
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', flexGrow: 0, justifyContent:'space-around' }}>
-               <View style={{ flexBasis: '48%', height: 50, backgroundColor: 'powderblue' }} />
-            </View>
             <List>
-               <ListItem thumbnail style={{paddingBottom:5}}>
-                  <Left>
-                     <Thumbnail square source={logo} />
-                  </Left>
-                  <Body>
-                     <Text>Sankhadeep</Text>
-                     <Text note numberOfLines={1}>Its time to build a difference . .</Text>
-                  </Body>
-                  <Right>
-                     <Button transparent>
-                        <Text>View</Text>
-                     </Button>
-                  </Right>
-               </ListItem>
+               <Thumbnail />
+               <Thumbnail />
+               <Thumbnail />
+               <Thumbnail />
             </List>
             <List style={{ display: 'flex' }} >
                <ListItem style={{ flex: .4 }}>

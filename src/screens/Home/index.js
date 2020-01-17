@@ -5,7 +5,6 @@ import {
    Icon, Container, Content, Text, Row, Item, Input, Tabs,
    Tab, TabHeading, ScrollableTab, FooterTab, Button, Badge, List, ListItem, Left, Thumbnail, Body, Right
 } from 'native-base'
-import logo from '../../../assets/img/logo.png'
 
 
 import Footer from '../Component/Footer'
@@ -26,32 +25,29 @@ const Home = () => {
    return (
       <Container>
          <Header />
-         {/* <Tabs tabContainerStyle={{backgroundColor:'#000'}} 
-         tabBarUnderlineStyle={{backgroundColor:'red'}}>
-          <Tab heading="Tab1"  >
-            <Text >halo semua</Text>
-          </Tab>
-          <Tab heading="Tab2">
-            <Text >halo semua</Text>
-          </Tab>
-          <Tab heading={ <TabHeading><Icon name="apps" /></TabHeading>}>
-            <Text >halo semua</Text>
-          </Tab>
-        </Tabs> */}
-         {/* <Content padder>
-            <ListProduct />
-            <List style={{ display: 'flex' }} >
-               <ListItem style={{ flex: .4 }}>
-                  <Text>Simon Mignolet</Text>
-               </ListItem>
-               <ListItem style={{ flexBasis: 40 }}>
-                  <Text>Nathaniel Clyne</Text>
-               </ListItem>
-               <ListItem>
-                  <Text>Dejan Lovren</Text>
-               </ListItem>
-            </List>
-         </Content> */}
+         <Tabs locked={true} renderTabBar={() =>
+            <ScrollableTab underlineStyle={{ backgroundColor: "green" }} style={{ backgroundColor: "#fff", paddingLeft: 16 }} />}>
+            <Tab heading={
+               <TabHeading style={{ backgroundColor: "#fff" }}>
+                  <Text style={{ color: "gray" }}>All</Text>
+               </TabHeading>
+            } />
+            <Tab heading={
+               <TabHeading style={{ backgroundColor: "#fff" }}>
+                  <Text style={{ color: "gray" }}>Makanan Berat</Text>
+               </TabHeading>
+            } />
+            <Tab heading={
+               <TabHeading style={{ backgroundColor: "#fff" }}>
+                  <Text style={{ color: "gray" }}>Makanan Ringan</Text>
+               </TabHeading>
+            } />
+            <Tab heading={
+               <TabHeading style={{ backgroundColor: "#fff" }}>
+                  <Text style={{ color: "gray" }}>Minuman</Text>
+               </TabHeading>
+            } />
+         </Tabs>
          <ListProduct />
          <Footer />
       </Container>
