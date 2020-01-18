@@ -81,10 +81,10 @@ function Profile(props) {
                 style={{ textAlign: 'center' }} />
             </Item>
 
-            <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50, display:'flex' }}>
+            <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50, display:'none' }}>
               <Text> Save </Text>
             </Button>
-            <Button rounded bordered warning block style={{ paddingBottom: 4, marginHorizontal: 50, display:'none' }}>
+            <Button rounded bordered warning block style={{ paddingBottom: 4, marginHorizontal: 50,  }}>
               <Text> Edit </Text>
             </Button>
           </Form>

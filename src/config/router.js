@@ -85,6 +85,8 @@ const BottomNavigationStack = createBottomTabNavigator(
 
 const AppStackNavigation = createStackNavigator(
   {
+    BottomNavigationStack,
+    // Restaurant: { screen: Restaurant },
     DetailProduct: { screen: DetailProduct },
   },
   {
@@ -95,12 +97,11 @@ const AppStackNavigation = createStackNavigator(
 const Router = createSwitchNavigator(
   {
     AuthStack,
-    BottomNavigationStack,
     AppStackNavigation,
   },
   {
     headerMode: 'none',
-    initialRouteName: 'BottomNavigationStack',
+    initialRouteName: 'AppStackNavigation',
   },
 );
 

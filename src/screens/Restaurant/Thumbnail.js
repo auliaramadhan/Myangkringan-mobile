@@ -17,9 +17,9 @@ const Thumbnail = () => {
         <ThumbnailView square source={logo} style={{paddingBottom: 5}} />
       </Left>
       <Body>
-        <Text>Sankhadeep</Text>
+        <Text style={{fontSize:16}}>Sankhadeep</Text>
         <Text note numberOfLines={2}>
-          Its time to build a difference . .
+          alamat ln jambu no 19 a kota pare
         </Text>
       </Body>
       <Right>

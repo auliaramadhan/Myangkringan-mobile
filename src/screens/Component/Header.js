@@ -14,25 +14,25 @@ const style = StyleSheet.create({
 })
 
 
-const Home = () => {
+const Restaurant = (props) => {
    return (
-      <Header searchBar style={{backgroundColor:'#eee'}} >
+      <Header searchBar style={{ backgroundColor: '#eee' }} >
          <Left>
-            <Button transparent>
+            {/* <Button transparent>
                <Icon name='arrow-back' style={{ color: 'black' }} />
-            </Button>
+            </Button> */}
          </Left>
          <Body>
-            <Title style={{color:'gray'}} >Home</Title>
+            <Title style={{ color: 'gray' }} >{props.name}</Title>
          </Body>
          <Right>
 
-            <Button transparent>
+            {!props.nofilter && <Button transparent>
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />
-            </Button>
-            <Button transparent>
+            </Button>}
+            {!props.nosearch && <Button transparent>
                <Icon name='search' type='MaterialIcons' style={{ color: 'black' }} />
-            </Button>
+            </Button>}
             <Button transparent >
                <Badge style={{ position: 'absolute', right: 0 }}>
                   <Text style={{ fontSize: 10 }}>22</Text>
@@ -63,4 +63,4 @@ const Home = () => {
 //    </Right>
 // </Header>
 
-export default Home;
+export default Restaurant;

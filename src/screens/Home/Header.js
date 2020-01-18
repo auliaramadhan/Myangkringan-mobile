@@ -26,8 +26,9 @@ const Home = () => {
             <Title style={{color:'darkslategray'}} >Home</Title>
          </Body>
          <Right>
+            <Button transparent onPress={()=>{
 
-            <Button transparent>
+            }}>
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />
             </Button>
             <Button transparent>

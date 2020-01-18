@@ -8,23 +8,14 @@ import {
 
 
 import Footer from '../Component/Footer'
-import Header from './Header'
+import Header from '../Component/Header'
 import ListProduct from '../Component/ListProduct';
 
-const style = StyleSheet.create({
-   name: {
 
-   },
-   name12: {
-
-   },
-})
-
-
-const Home = () => {
+const Home = (props) => {
    return (
       <Container>
-         <Header />
+         <Header name={"Home"} />
          {/* <Tabs locked={true} renderTabBar={() =>
             <ScrollableTab underlineStyle={{ backgroundColor: "green" }} 
             style={{ backgroundColor: "#fff", paddingLeft: 16 }} />}>
@@ -50,7 +41,7 @@ const Home = () => {
             } />
          </Tabs>
             */}
-         <ListProduct /> 
+         <ListProduct navigate={props.navigation.navigate} /> 
          {/* <Footer /> */}
       </Container>
    );

@@ -3,13 +3,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
    Icon, Container, Content, Text, Row, Item, Input, Tabs,
-   Tab, TabHeading, ScrollableTab, FooterTab, Button, Badge, List, ListItem, Left, Thumbnail, Body, Right
+   Tab, TabHeading, ScrollableTab, FooterTab, Button, Badge, List, ListItem, Left,  Body, Right
 } from 'native-base'
+import Thumbnail from './Thumbnail'
 import logo from '../../assets/img/logo.png'
 
 
 import Footer from '../Component/Footer'
-import Header from './Header'
+import Header from '../Component/Header'
 
 const style = StyleSheet.create({
    name: {
@@ -24,24 +25,13 @@ const style = StyleSheet.create({
 const Restaurant = () => {
    return (
       <Container>
-         <Header />
+         <Header nofilter nosearch name={"Restaurant"}/>
          <Content padder>
             <List>
                <Thumbnail />
                <Thumbnail />
                <Thumbnail />
                <Thumbnail />
-            </List>
-            <List style={{ display: 'flex' }} >
-               <ListItem style={{ flex: .4 }}>
-                  <Text>Simon Mignolet</Text>
-               </ListItem>
-               <ListItem style={{ flexBasis: 40 }}>
-                  <Text>Nathaniel Clyne</Text>
-               </ListItem>
-               <ListItem>
-                  <Text>Dejan Lovren</Text>
-               </ListItem>
             </List>
          </Content>
          {/* <Footer /> */}
