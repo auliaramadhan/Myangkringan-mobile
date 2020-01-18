@@ -6,6 +6,7 @@ import Home from './Home';
 import Login from './Login';
 import MyOrder from './MyOrder';
 import Cart from './Cart';
+import Search from './Search';
 import ByRestaurant from './Restaurant/ByRestaurant';
 
-export {Profile, Restaurant, Register, DetailProduct, Home, Login, MyOrder, Cart, ByRestaurant};
+export {Profile, Restaurant, Register, DetailProduct, Home, Login, MyOrder, Cart, ByRestaurant, Search};

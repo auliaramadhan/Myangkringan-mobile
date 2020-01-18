@@ -49,7 +49,8 @@ const HeaderBar = (props) => {
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />
             </Button>}
             {!props.nosearch && 
-            <Button transparent>
+            <Button transparent
+            onPress={()=>props.navigation.navigate('Search')}>
                <Icon name='search' type='MaterialIcons' style={{ color: 'black' }} />
             </Button>}
             <Button icon transparent 

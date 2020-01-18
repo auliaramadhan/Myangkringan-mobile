@@ -15,6 +15,7 @@ import {
   Cart,
   ByRestaurant
 } from '../screens';
+import Search from '../screens/Search';
 
 const AuthStack = createStackNavigator(
   {
@@ -93,6 +94,7 @@ const AppStackNavigation = createStackNavigator(
     DetailProduct: { screen: DetailProduct },
     Cart: { screen: Cart },
     ByRestaurant: { screen: ByRestaurant },
+    Search: { screen: Search },
   },
   {
     headerMode: 'none',
