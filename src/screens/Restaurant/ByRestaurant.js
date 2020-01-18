@@ -7,18 +7,16 @@ import {
 import Thumbnail from './Thumbnail'
 import logo from '../../assets/img/logo.png'
 
+import ListProduct from '../Component/ListProduct';
 
-import Footer from '../Component/Footer'
-import Header from '../Component/Header'
-
-const Restaurant = (props) => {
+const ByRestaurant = (props) => {
    
    useEffect(() => {
       //dispatch
     }, [])
    return (
       <Container>
-         <Header nofilter nosearch name={"Restaurant"} navigation={props.navigation}  />
+         {/* <Header nofilter nosearch name={"Restaurant"} navigation={props.navigation}  /> */}
          <Content padder>
          <Card style={{flex: 0}}>
          <CardItem header bordered style={{ paddingBottom: 8, paddingTop: 8 }}>
@@ -38,16 +36,12 @@ const Restaurant = (props) => {
               </Body>
             </CardItem>
           </Card>
-            <List>
-               <Thumbnail data={props.restaurant} navigation={props.navigation} />
-               <Thumbnail />
-               <Thumbnail />
-               <Thumbnail />
-            </List>
+
+          <ListProduct navigation={props.navigation} />
          </Content>
          {/* <Footer /> */}
       </Container>
    );
 };
 
-export default Restaurant;
+export default ByRestaurant;

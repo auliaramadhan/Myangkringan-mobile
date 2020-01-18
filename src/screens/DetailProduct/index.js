@@ -43,17 +43,16 @@ const DetailProduct = () => {
     <Container>
       <Content padder>
         <Card style={style.card}>
-          {/* <Card style={{flex: 0}}> */}
           <CardItem header bordered style={{ paddingBottom: 8, paddingTop: 8 }}>
             <Left>
               <TB source={logo} />
+              <Body>
+                <Text>Nama Product</Text>
+                <Text note>
+                  <Icon name="star" style={{ color: 'gold', fontSize: 16 }} /> dad
+                </Text>
+              </Body>
             </Left>
-            <Body>
-              <Text>Nama Product</Text>
-              <Text note>
-                <Icon name="star" style={{ color: 'gold', fontSize: 16 }} /> dad
-              </Text>
-            </Body>
           </CardItem>
           <CardItem cardBody>
             <Body>

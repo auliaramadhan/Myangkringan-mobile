@@ -29,7 +29,6 @@ const ListProduct = (props) => {
   const [modalVisible, setModalVisible] = useState(false)
   return (
     <Fragment>
-    <Content >
       {/* style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', flexGrow: 0, justifyContent:'space-around' }}> */}
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
         {Array(8).fill(<Card style={{ flexBasis: '48%', marginTop: 5 }}>
@@ -59,7 +58,6 @@ const ListProduct = (props) => {
           </CardItem>
         </Card>)}
       </View>
-    </Content>
 
     {/* ----------MODAL--------------- */}
     <Modal

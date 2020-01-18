@@ -1,22 +1,24 @@
-import React, {Component} from 'react';
-import {
-  Container,
-  
-  Content,
-  Icon,
-  Accordion,
-  Text,
-  View,
-} from 'native-base';
-import Header from '../Component/Header'
+/* eslint-disable prettier/prettier */
+import React, {Component, useEffect} from 'react';
+import {Container, Content, Icon, Accordion, Text, View, Label, Item, Input, Form} from 'native-base';
+import Header from '../Component/Header';
 const dataArray = [
   {title: 'First Element', content: 'Lorem ipsum dolor sit amet'},
   {title: 'Second Element', content: 'Lorem ipsum dolor sit amet'},
   {title: 'Third Element', content: 'Lorem ipsum dolor sit amet'},
 ];
 
-export default class AccordionCustomHeaderContent extends Component {
-  _renderHeader(item, expanded) {
+export default function Order(props) {
+  
+  
+  
+  
+  
+  useEffect(() => {
+    //dispatch
+  }, [])
+
+  function _renderHeader(item, expanded) {
     return (
       <View
         style={{
@@ -35,32 +37,40 @@ export default class AccordionCustomHeaderContent extends Component {
       </View>
     );
   }
-  _renderContent(item) {
+  function _renderContent(item) {
     return (
-      <Text
+      <Form
         style={{
           backgroundColor: '#eee',
           padding: 10,
           fontStyle: 'italic',
         }}>
-        {item.content}
-      </Text>
+        
+        <Item stackedLabel >
+          <Label>name</Label>
+          <Input value={item.content} disabled />
+        </Item>
+      </Form>
     );
   }
-  render() {
-    return (
-      <Container>
-        <Header nosearch nofilter name={'My Order'} navigation={props.navigation}  />
-        <Content padder style={{backgroundColor: 'white'}}>
-          <Accordion
-            dataArray={dataArray}
-            animation={true}
-            expanded={true}
-            renderHeader={this._renderHeader}
-            renderContent={this._renderContent}
-          />
-        </Content>
-      </Container>
-    );
-  }
+
+  return (
+    <Container>
+      <Header
+        nosearch
+        nofilter
+        name={'My Order'}
+        navigation={props.navigation}
+      />
+      <Content padder style={{backgroundColor: 'white'}}>
+        <Accordion
+          dataArray={dataArray}
+          animation={true}
+          expanded={true}
+          renderHeader={_renderHeader}
+          renderContent={_renderContent}
+        />
+      </Content>
+    </Container>
+  );
 }

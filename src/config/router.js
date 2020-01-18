@@ -12,7 +12,8 @@ import {
   Register,
   DetailProduct,
   MyOrder,
-  Cart
+  Cart,
+  ByRestaurant
 } from '../screens';
 
 const AuthStack = createStackNavigator(
@@ -91,6 +92,7 @@ const AppStackNavigation = createStackNavigator(
     // Restaurant: { screen: Restaurant },
     DetailProduct: { screen: DetailProduct },
     Cart: { screen: Cart },
+    ByRestaurant: { screen: ByRestaurant },
   },
   {
     headerMode: 'none',

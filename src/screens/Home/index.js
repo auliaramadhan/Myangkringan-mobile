@@ -41,7 +41,9 @@ const Home = (props) => {
             } />
          </Tabs>
             */}
-         <ListProduct navigation={props.navigation} /> 
+         <Content padder>
+            <ListProduct navigation={props.navigation} /> 
+         </Content>
          {/* <Footer /> */}
       </Container>
    );

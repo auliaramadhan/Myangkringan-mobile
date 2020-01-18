@@ -10,6 +10,11 @@ const style = StyleSheet.create({
     padding: 16,
     justifyContent: 'center'
   },
+  title:{
+    marginTop:'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
   textmiddlePage: {
     marginLeft: 'auto',
     marginRight: 'auto'
@@ -17,40 +22,50 @@ const style = StyleSheet.create({
   }
 });
 
-export default class Register extends Component {
-  render() {
+export default function Register(props) {
+  
     return (
       <Container >
         <Content padder contentContainerStyle={{flexGrow:1}}>
           <View style={style.title}>
-            <Image source={logo} style={{ height: 150 }} resizeMode='contain' />
+          <Image source={logo} style={{ height: 150 }} resizeMode='contain' />
+            <Text style={{fontWeight:'bold', textAlign:'center'}}>
+              Register
+            </Text>
           </View>
 
           <Form style={{ marginBottom: 'auto' }} >
             <Label style={style.textmiddlePage} >Username</Label>
-            <Item rounded block style={{ marginBottom: 20 }} >
+            <Item rounded block style={{ marginBottom: 4 }} >
+              <Input placeholder="Username" 
+                style={{ textAlign: 'center' }} />
+            </Item>
+            <Label style={style.textmiddlePage} >Email</Label>
+            <Item rounded block style={{ marginBottom: 4}} >
               <Input placeholder="Username" 
                 style={{ textAlign: 'center' }} />
             </Item>
             <Label style={style.textmiddlePage}>Password</Label>
-            <Item rounded last style={{ marginBottom: 40 }}>
+            <Item rounded last style={{ marginBottom: 4 }}>
+              <Input secureTextEntry={true} placeholder="Password"
+                style={{ textAlign: 'center' }} />
+            </Item>
+            <Label style={style.textmiddlePage}>Password</Label>
+            <Item rounded last style={{ marginBottom: 4 }}>
               <Input secureTextEntry={true} placeholder="Password"
                 style={{ textAlign: 'center' }} />
             </Item>
 
             <Button rounded bordered block style={{ paddingBottom: 4, marginHorizontal: 50 }}>
-              <Text> Login </Text>
-            </Button>
-            <Button block dark transparent
-              style={{ marginTop: 20 }}><Text> Forgot Password </Text>
+              <Text> Register </Text>
             </Button>
           </Form>
         <Button block primary transparent
-          style={{ marginTop: 'auto' }}><Text> Dont have Account? Sign Here </Text>
+          onPress={() => props.navigation.goBack()}
+          style={{ marginTop: 'auto' }}><Text> Already Register? Login Here </Text>
         </Button>
           </Content>
       </Container>
       
     );
   }
-}

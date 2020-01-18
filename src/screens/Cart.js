@@ -213,10 +213,10 @@
 
 
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
-   Icon, Container, Content, Text, Row, Button, Badge, List, ListItem, Left, Body, Right
+   Icon, Container, Content, Text, Row, Button, Badge, List, ListItem, Left, Body, Right, Toast
 } from 'native-base'
 import Item from './Component/ItemCart'
 import logo from '../assets/img/logo.png'
@@ -234,6 +234,16 @@ const style = StyleSheet.create({
 })
 
 const Cart = () => {
+   
+   useEffect(() => {
+      Toast.show({
+         text: "swipe left to delete",
+         buttonText: "Okay",
+         duration: 2000
+       })
+       //dispatch
+   }, [])
+
    return (
       <Container>
          <Content padder>

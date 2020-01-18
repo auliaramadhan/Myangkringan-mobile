@@ -10,7 +10,7 @@ import {
 } from 'native-base';
 import logo from '../../assets/img/logo.png';
 
-const Thumbnail = () => {
+const Thumbnail = ({navigation}) => {
   return (
     <ListItem thumbnail>
       <Left>
@@ -23,7 +23,7 @@ const Thumbnail = () => {
         </Text>
       </Body>
       <Right>
-        <Button transparent>
+        <Button transparent onPress={() => navigation.navigate('ByRestaurant')}>
           <Text>View</Text>
         </Button>
       </Right>

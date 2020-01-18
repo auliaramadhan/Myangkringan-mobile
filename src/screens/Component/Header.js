@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Icon, Container, Content, Text, Row, Item, Input, Button, Header, Badge, Right, Body, Left, Title, Subtitle } from 'native-base'
+import { Icon, Container, Content, Text, Row, Item, Input, Button, Header, Badge, Right, Body, Left, Title, Subtitle, ActionSheet } from 'native-base'
 
 
 const style = StyleSheet.create({
@@ -13,8 +13,14 @@ const style = StyleSheet.create({
    },
 })
 
+var BUTTONS = ["rating", "price", "name", "Delete", "Cancel"];
+var DESTRUCTIVE_INDEX = 3;
+var CANCEL_INDEX = 4;
 
 const HeaderBar = (props) => {
+   
+   const [query, setQuery] = useState({})
+   
    return (
       <Header searchBar style={{ backgroundColor: '#eee' }} >
          <Left>
@@ -27,7 +33,19 @@ const HeaderBar = (props) => {
          </Body>
          <Right>
 
-            {!props.nofilter && <Button transparent>
+            {!props.nofilter && <Button transparent 
+            onPress={() =>
+               ActionSheet.show(
+                 {
+                   options: BUTTONS,
+                   cancelButtonIndex: CANCEL_INDEX,
+                   destructiveButtonIndex: DESTRUCTIVE_INDEX,
+                   title: "Order By"
+                 },
+                 buttonIndex => {
+                   setQuery({ clicked: BUTTONS[buttonIndex] });
+                 }
+               )}>
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />
             </Button>}
             {!props.nosearch && 
@@ -41,28 +59,14 @@ const HeaderBar = (props) => {
                </Badge>
                <Icon name="cart" style={{ color: "black" }} />
             </Button>
+            {props.logout && 
+            <Button transparent
+            onPress={()=>props.navigation.navigate('Login')}>
+               <Icon name='logout' type='MaterialCommunityIcons' style={{ color: 'black' }} />
+            </Button>}
          </Right>
       </Header>
    );
 };
-// <Header hasTabs searchBar style={{ backgroundColor: '#fff' }}>
-//    <Left>
-//       <Button bordered primary>
-//          <Text>Search</Text>
-//       </Button>
-//    </Left>
-//    <Body>
-//       <Item rounded bordered >
-//          <Icon name="ios-search" />
-//          <Input placeholder="Search" />
-//          <Icon name="ios-people" />
-//       </Item>
-//    </Body>
-//    <Right>
-//       <Button transparent>
-//          <Text>Search</Text>
-//       </Button>
-//    </Right>
-// </Header>
 
 export default HeaderBar;
