@@ -11,6 +11,8 @@ import {
   Restaurant,
   Register,
   DetailProduct,
+  MyOrder,
+  Cart
 } from '../screens';
 
 const AuthStack = createStackNavigator(
@@ -44,8 +46,8 @@ const BottomNavigationStack = createBottomTabNavigator(
         ),
       },
     },
-    Order: {
-      screen: DetailProduct,
+    MyOrder: {
+      screen: MyOrder,
       navigationOptions: {
         tabBarLabel: 'Order',
         tabBarIcon: ({ tintColor }) => (
@@ -88,6 +90,7 @@ const AppStackNavigation = createStackNavigator(
     BottomNavigationStack,
     // Restaurant: { screen: Restaurant },
     DetailProduct: { screen: DetailProduct },
+    Cart: { screen: Cart },
   },
   {
     headerMode: 'none',

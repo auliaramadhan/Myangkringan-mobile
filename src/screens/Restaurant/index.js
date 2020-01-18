@@ -22,10 +22,10 @@ const style = StyleSheet.create({
 })
 
 
-const Restaurant = () => {
+const Restaurant = (props) => {
    return (
       <Container>
-         <Header nofilter nosearch name={"Restaurant"}/>
+         <Header nofilter nosearch name={"Restaurant"} navigation={props.navigation}  />
          <Content padder>
             <List>
                <Thumbnail />

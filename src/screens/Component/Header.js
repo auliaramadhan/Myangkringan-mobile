@@ -14,7 +14,7 @@ const style = StyleSheet.create({
 })
 
 
-const Restaurant = (props) => {
+const HeaderBar = (props) => {
    return (
       <Header searchBar style={{ backgroundColor: '#eee' }} >
          <Left>
@@ -30,10 +30,12 @@ const Restaurant = (props) => {
             {!props.nofilter && <Button transparent>
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />
             </Button>}
-            {!props.nosearch && <Button transparent>
+            {!props.nosearch && 
+            <Button transparent>
                <Icon name='search' type='MaterialIcons' style={{ color: 'black' }} />
             </Button>}
-            <Button transparent >
+            <Button icon transparent 
+            onPress={()=>props.navigation.navigate('Cart')} >
                <Badge style={{ position: 'absolute', right: 0 }}>
                   <Text style={{ fontSize: 10 }}>22</Text>
                </Badge>
@@ -63,4 +65,4 @@ const Restaurant = (props) => {
 //    </Right>
 // </Header>
 
-export default Restaurant;
+export default HeaderBar;

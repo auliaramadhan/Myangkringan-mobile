@@ -14,7 +14,7 @@ const style = StyleSheet.create({
 })
 
 
-const Home = () => {
+const HeaderBar = (props) => {
    return (
       <Header searchBar style={{backgroundColor:'#fff'}} >
          <Left>
@@ -44,4 +44,4 @@ const Home = () => {
       </Header>
    );
 };
-export default Home;
+export default HeaderBar;

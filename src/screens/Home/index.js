@@ -15,7 +15,7 @@ import ListProduct from '../Component/ListProduct';
 const Home = (props) => {
    return (
       <Container>
-         <Header name={"Home"} />
+         <Header name={"Home"} navigation={props.navigation} />
          {/* <Tabs locked={true} renderTabBar={() =>
             <ScrollableTab underlineStyle={{ backgroundColor: "green" }} 
             style={{ backgroundColor: "#fff", paddingLeft: 16 }} />}>
@@ -41,7 +41,7 @@ const Home = (props) => {
             } />
          </Tabs>
             */}
-         <ListProduct navigate={props.navigation.navigate} /> 
+         <ListProduct navigation={props.navigation} /> 
          {/* <Footer /> */}
       </Container>
    );

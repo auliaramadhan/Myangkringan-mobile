@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, Fragment, useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Button, Container, Header, Title, Body, Item, Form, Label, Input, Text, Content, Icon, H1, DatePicker } from 'native-base';
+import { Button, Container,  Title, Body, Item, Form, Label, Input, Text, Content, Icon, H1, DatePicker } from 'native-base';
 import logo from '../assets/img/logo.png'
+import Header from './Component/Header'
 
 const style = StyleSheet.create({
   root: {
@@ -35,6 +36,7 @@ function Profile(props) {
       const [date, setDate] = useState(0)   
     return (
       <Container >
+        <Header nosearch nofilter name="Profile" navigation={props.navigation}  />
         <Content padder contentContainerStyle={{flexGrow:1}}>
           <View style={style.title}>
             <Image source={logo} style={{ height: 150 }} resizeMode='contain' />
