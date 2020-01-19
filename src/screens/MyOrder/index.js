@@ -1,23 +1,30 @@
 /* eslint-disable prettier/prettier */
-import React, {Component, useEffect} from 'react';
-import {Container, Content, Icon, Accordion, Text, View, Label, Item, Input, Form} from 'native-base';
+import React, {Component, useEffect, useState} from 'react';
+import {Container, Content, Icon, Accordion, Text, View, Label, Item, Input, Form, Button, Left, ListItem, Body, List} from 'native-base';
 import Header from '../Component/Header';
+import { getCheckout, getDetailCheckout } from '../../redux/action/getData';
+import { connect } from 'react-redux';
+import { Modal } from 'react-native';
 const dataArray = [
   {title: 'First Element', content: 'Lorem ipsum dolor sit amet'},
   {title: 'Second Element', content: 'Lorem ipsum dolor sit amet'},
   {title: 'Third Element', content: 'Lorem ipsum dolor sit amet'},
 ];
 
-export default function Order(props) {
-  
-  
-  
-  
+function Order(props) {
   
   useEffect(() => {
-    //dispatch
-  }, [])
+    props.dispatch(getCheckout(props.auth.token))
+ }, [])
 
+ const [modalVisible, setModalVisible] = useState(false)
+ const showDetail = async (id) => {
+    await props.dispatch(getDetailCheckout(props.auth.token, id))
+    setModalVisible(true)
+ }
+
+
+  
   function _renderHeader(item, expanded) {
     return (
       <View
@@ -28,7 +35,7 @@ export default function Order(props) {
           alignItems: 'center',
           backgroundColor: '#f77a2511',
         }}>
-        <Text style={{fontWeight: '600'}}> {item.title}</Text>
+        <Text style={{fontWeight: '600'}}> {item.created_on.split('T')[0]} {item.id} </Text>
         {expanded ? (
           <Icon style={{fontSize: 18}} name="remove-circle" />
         ) : (
@@ -37,7 +44,7 @@ export default function Order(props) {
       </View>
     );
   }
-  function _renderContent(item) {
+  function _renderContent(v) {
     return (
       <Form
         style={{
@@ -48,8 +55,20 @@ export default function Order(props) {
         
         <Item stackedLabel >
           <Label>name</Label>
-          <Input value={item.content} disabled />
+          <Input value={`${v.first_name} ${v.last_name}`} disabled />
         </Item>
+        <Item stackedLabel >
+          <Label>address</Label>
+          <Input value={v.address} disabled />
+        </Item>
+        <Item stackedLabel >
+          <Label>Total</Label>
+          <Input value={`IDR ${v.total_harga}`} disabled />
+        </Item>
+        <Button iconLeft warning rounded onPress={()=>showDetail(v.id)} >
+          <Icon name='eye' type='FontAwesome' />
+          <Text>See Detail</Text>
+        </Button>
       </Form>
     );
   }
@@ -64,13 +83,50 @@ export default function Order(props) {
       />
       <Content padder style={{backgroundColor: 'white'}}>
         <Accordion
-          dataArray={dataArray}
+          dataArray={props.checkout.data}
           animation={true}
           expanded={true}
           renderHeader={_renderHeader}
           renderContent={_renderContent}
         />
       </Content>
+
+      <Modal
+        animationType="slide"
+        transparent
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={{ flex: 1, marginVertical: 50, backgroundColor: 'rgba(20,20,20,0.1)', justifyContent: 'center' }}>
+          <List style={{backgroundColor:'#fff', padding:16}}>
+          {props.detailCheckout.data  &&
+            props.detailCheckout.data.map((v,i) =>
+            <ListItem>
+              <Left>
+                  <Text> {v.name} </Text>
+                  <Text> {v.qty}X </Text>
+              </Left>
+              <Body>
+                  <Text>IDR {v.total}</Text>
+              </Body>
+              
+            </ListItem>
+            )}
+          </List>
+        </View>
+      </Modal>
+
     </Container>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+     checkout: state.checkout,
+     auth: state.auth,
+     detailCheckout: state.detailCheckout
+  }
+}
+
+export default connect(mapStateToProps)(Order)

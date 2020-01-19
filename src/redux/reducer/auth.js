@@ -19,7 +19,6 @@ const cart = (state = initialState, action) => {
         isLoading: false,
         isError: true,
       };
-
     case 'POST_LOGOUT_FULFILLED':
       return {
         ...state,

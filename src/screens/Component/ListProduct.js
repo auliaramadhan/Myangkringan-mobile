@@ -26,10 +26,9 @@ const style = StyleSheet.create({
 
 const ListProduct = ({ query, dispatch, auth, ...props }) => {
   const [modalVisible, setModalVisible] = useState(false)
-  // const [query, setQuery] = useState(props.query)
+  // const [queryfinal, setQuery] = useState(query)
   const [dataModal, setDataModal] = useState({})
   const [qty, setQty] = useState(0)
-
 
   useEffect(() => {
     dispatch(getItems(query))
@@ -84,7 +83,8 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
           </Card>)}
       </View>
       <Row style={{ flex: 1, marginTop: 5 }}>
-        <Button icon rounded warning >
+        <Button icon rounded warning 
+        >
           <Icon name='arrow-left' type='MaterialCommunityIcons' />
         </Button>
         <Button icon rounded warning style={{ marginLeft: 'auto' }}>

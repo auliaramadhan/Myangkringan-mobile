@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import logo from '../../assets/img/logo.png';
 import {
@@ -39,9 +39,9 @@ const style = StyleSheet.create({
 const DetailProduct = ({dispatch, review, navigation,auth}) => {
   useEffect(() => {
     dispatch(getReview(navigation.state.params.data.id));
-    if (review.isError) {
-      alert('terdapat error');
-    }
+    // if (review.isError) {
+    //   alert('terdapat error');
+    // }
   }, [
     review.isError,
     review.status,
@@ -49,19 +49,25 @@ const DetailProduct = ({dispatch, review, navigation,auth}) => {
     dispatch,
   ]);
 
+  const [addReview, setAddReview] = useState(false)
   const [inputreviews, setInputReviews] = useState({})
-   const submitReview = () => {
-      dispatch(postReview(auth.token
+   const submitReview = async () => {
+      await dispatch(postReview(auth.token
         ,{...inputreviews, 
         id_item: navigation.state.params.data.id }))
+      if (!review.status.success) {
+        alert('ada error')
+      }
+      setAddReview(false)
    }
 
   return (
     <Container>
       <Content padder>
-        <CardProdut data={navigation.state.params.data} />
+        <CardProdut data={navigation.state.params.data} dispatch={dispatch} token={auth.token}
+        back={() => navigation.goBack()} />
 
-        <Form>
+        {addReview &&<Form>
           <Item floatingLabel>
             <Label>Add review</Label>
             <Input multiline={true} numberOfLines={3}
@@ -70,38 +76,45 @@ const DetailProduct = ({dispatch, review, navigation,auth}) => {
           <AirbnbRating
             count={5}
             reviews={['Meh', 'OK', 'Good', 'Very Good', 'Amazing']}
-            // showRating={false}
             defaultRating={4}
-            isDisabled
             size={20}
             onFinishRating={(value) => setInputReviews({...inputreviews, rating:value})}
           />
-        </Form>
+        </Form>}
         <List>
           <ListItem style={{justifyContent: 'space-between'}}>
+          {!addReview &&
             <Button iconLeft bordered rounded warning
-            >
+            onPress={()=> setAddReview(true) }>
               <Icon name="plus" type="MaterialCommunityIcons" />
               <Text>Add review</Text>
+            </Button>}
+            {addReview &&
+            <Fragment>
+            <Button iconLeft bordered rounded danger
+            onPress={()=> setAddReview(false)}>
+              <Icon name="minus" type="MaterialCommunityIcons" />
+              <Text>Cancel</Text>
             </Button>
             <Button iconLeft bordered rounded success
             onPress={submitReview}>
               <Icon name="plus" type="MaterialCommunityIcons" />
               <Text>Save</Text>
             </Button>
+            </Fragment>}
           </ListItem>
           {review.data &&
             review.data.map((v, i) => <Review data={v} key={i} />)}
+          {/* <Review />
           <Review />
-          <Review />
-          <Review />
+          <Review /> */}
         </List>
       </Content>
     </Container>
   );
 };
 
-function CardProdut({data, cart, auth, dispatch}) {
+function CardProdut({data, cart, token, dispatch, back}) {
   const [qty, setQty] = useState(0);
 
   const postdata = async () => {
@@ -109,16 +122,18 @@ function CardProdut({data, cart, auth, dispatch}) {
       alert('Minimal jumlah barang 1');
       return;
     }
+    console.log({data, cart, token, dispatch})
     await dispatch(
-      postCart(auth.token, {
+      postCart(token, {
         id_item: data.id,
         qty: qty,
         total: qty * data.price,
       }),
     );
-    if (cart.isError) {
-      alert('terdapat error di database');
-    }
+    back()
+    // if (cart.isError) {
+    //   alert('terdapat error di database');
+    // }else 
   };
   return (
     <Card style={style.card}>
@@ -128,7 +143,7 @@ function CardProdut({data, cart, auth, dispatch}) {
           <Body>
             <Text>{data.name}</Text>
             <Text note>
-              <Icon name="star" style={{color: 'gold', fontSize: 16}} /> dad
+              <Icon name="star" style={{color: 'gold', fontSize: 16}} /> {data.rating.toFixed(2)}
             </Text>
           </Body>
         </Left>
@@ -178,7 +193,9 @@ function CardProdut({data, cart, auth, dispatch}) {
       <Button
         block
         warning
-        style={{borderBottomLeftRadius: 50, borderBottomRightRadius: 50}}>
+        style={{borderBottomLeftRadius: 50, borderBottomRightRadius: 50}}
+        onPress={() => postdata()}
+        >
         <Icon name="cart" />
         <Text>Add To Cart</Text>
       </Button>

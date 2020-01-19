@@ -28,12 +28,23 @@ function Register(props) {
   const [input, setInput] = useState({})
 
   const postRegister = async()=>{
+    if (input.password !== input.repassword) {
+      Toast.show({
+        text: "password harus sama",
+        buttonText: "Okay",
+        duration: 2000
+      })
+      return ;
+    }
     await props.dispatch(postAuth(input))
-    if(props.auth.isSuccess) Toast.show({
+    if(props.auth.isSuccess) {
+      Toast.show({
       text: "register berhasil",
       buttonText: "Okay",
       duration: 2000
     })
+    props.navigation.goBack();
+   }
     else if(props.auth.isError) Toast.show({
       text: "Terdapat Error di database",
       buttonText: "Okay",
@@ -58,33 +69,35 @@ function Register(props) {
 
           <Form style={{ marginBottom: 'auto' }} >
             <Label style={style.textmiddlePage} >Username</Label>
-            <Item rounded block style={{ marginBottom: 4 }} >
+            <Item rounded block style={{ marginBottom: 4, backgroundColor:'#fff' }} >
               <Input placeholder="Username" 
                 style={{ textAlign: 'center' }}
                 value={input.username}
               onChangeText={(e)=>setInput({...input,username:e})} />
             </Item>
             <Label style={style.textmiddlePage} >Email</Label>
-            <Item rounded block style={{ marginBottom: 4}} >
+            <Item rounded block style={{ marginBottom: 4, backgroundColor:'#fff'}} >
               <Input placeholder="Username" 
                 style={{ textAlign: 'center' }}
                 value={input.email}
               onChangeText={(e)=>setInput({...input,email:e})} />
             </Item>
             <Label style={style.textmiddlePage}>Password</Label>
-            <Item rounded last style={{ marginBottom: 4 }}>
+            <Item rounded last style={{ marginBottom: 4,backgroundColor:'#fff' }}>
               <Input secureTextEntry={true} placeholder="Password"
                 style={{ textAlign: 'center' }}
                 value={input.password}
               onChangeText={(e)=>setInput({...input,password:e})} />
             </Item>
             <Label style={style.textmiddlePage}>Password again</Label>
-            <Item rounded last style={{ marginBottom: 4 }}>
+            <Item rounded last style={{ marginBottom: 4,backgroundColor:'#fff' }}>
               <Input secureTextEntry={true} placeholder="Password"
-                style={{ textAlign: 'center' }} />
+                style={{ textAlign: 'center' }}
+                value={input.repassword}
+              onChangeText={(e)=>setInput({...input,repassword:e})} />
             </Item>
 
-            <Button rounded bordered block style={{ paddingBottom: 4, marginHorizontal: 50 }}
+            <Button rounded  block style={{ paddingBottom: 4, marginHorizontal: 50 }}
             onPress={postRegister}>
               <Text> Register </Text>
             </Button>

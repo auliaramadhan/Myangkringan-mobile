@@ -14,7 +14,7 @@ const HeaderBar = (props) => {
    
    useEffect(() => {
       props.dispatch(getCart(props.auth.token))
-    }, [props.cart.status])
+    }, [props.cart.status,props.checkout.status])
 
     useEffect(() => {
       props.dispatch(getProfile(props.auth.token))

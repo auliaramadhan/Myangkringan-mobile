@@ -51,23 +51,26 @@ const Cart = (props) => {
       }
    }
    const checkoutCart = async () => {
+
       const inputs = {
-         first_name: props.profile.first_name,
-         last_name: props.profile.last_name,
-         address: props.profile.address,
-         phone: props.profile.phone,
+         first_name: props.profile.data.first_name,
+         last_name: props.profile.data.last_name,
+         address: props.profile.data.address,
+         phone: props.profile.data.phone,
          total_harga: _.sumBy(props.cart.data, (v) => v.total)
       }
-      console.log(inputs.total_harga)
+      console.log(inputs)
       if (!inputs.total_harga) {
          return alert('please fill you cart first')
       }
       await props.dispatch(postCheckout(props.auth.token, inputs))
-      // props.history.push('/store')
       if (props.checkout.status.success) {
-         props.dispatch(getCart(props.auth.token))
+         // props.dispatch(getCart(props.auth.token))
          props.navigation.navigate.goBack();
-      }
+      }else if(props.checkout.isError) Toast.show({
+         text: "terdapat masalh di server ",
+         buttonText: "Okay",
+         duration: 2000  })
    }
 
 

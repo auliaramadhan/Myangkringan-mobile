@@ -11,23 +11,23 @@ import {
   Row,
 } from 'native-base';
 import logo from '../../assets/img/logo.png';
+import { AirbnbRating } from 'react-native-ratings';
 
-const Review = () => {
+const Review = ({data}) => {
   return (
     <ListItem thumbnail>
       <Body>
-        <Text>Sankhadeep</Text>
+        <Text> {`${data.first_name} ${data.last_name}`} </Text>
         <Text note numberOfLines={2}>
-          Its time to build a difference . .
+          {data.review}
         </Text>
       </Body>
       <Right>
-         <Row>
-            <Icon name='star' style={{color:'gold'}} />
-            <Icon name='star' style={{color:'gold'}} />
-            <Icon name='star' style={{color:'gold'}} />
-            <Icon name='star' style={{color:'gold'}} />
-         </Row>
+      <AirbnbRating
+            count={5}
+            defaultRating={Math.round(data.rating)}
+            isDisabled
+            size={12}/>
       </Right>
     </ListItem>
   );
