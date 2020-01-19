@@ -44,6 +44,14 @@ const Home = (props) => {
          <Content padder>
             <ListProduct navigation={props.navigation} /> 
          </Content>
+         <Row >
+            <Button icon>
+               <Icon name='arrow-left' />
+            </Button>
+            <Button icon>
+               <Icon name='arrow-right' />
+            </Button>
+         </Row>
          {/* <Footer /> */}
       </Container>
    );

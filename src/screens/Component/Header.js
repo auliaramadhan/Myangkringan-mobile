@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Icon, Container, Content, Text, Row, Item, Input, Button, Header, Badge, Right, Body, Left, Title, Subtitle, ActionSheet } from 'native-base'
+import { connect } from 'react-redux';
+import { getCart } from '../../redux/action/getData';
 
 
 const style = StyleSheet.create({
@@ -19,8 +21,11 @@ var CANCEL_INDEX = 4;
 
 const HeaderBar = (props) => {
    
-   const [query, setQuery] = useState({})
-   
+   useEffect(() => {
+      props.dispatch(getCart('token'))
+    }, [props.cart.status])
+     
+    
    return (
       <Header searchBar style={{ backgroundColor: '#eee' }} >
          <Left>
@@ -43,7 +48,7 @@ const HeaderBar = (props) => {
                    title: "Order By"
                  },
                  buttonIndex => {
-                   setQuery({ clicked: BUTTONS[buttonIndex] });
+                   props.setQuery({ clicked: BUTTONS[buttonIndex] });
                  }
                )}>
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />
@@ -56,7 +61,9 @@ const HeaderBar = (props) => {
             <Button icon transparent 
             onPress={()=>props.navigation.navigate('Cart')} >
                <Badge style={{ position: 'absolute', right: 0 }}>
-                  <Text style={{ fontSize: 10 }}>22</Text>
+                  <Text style={{ fontSize: 10 }}>
+                     {props.cart.data && props.cart.data.length}
+                  </Text>
                </Badge>
                <Icon name="cart" style={{ color: "black" }} />
             </Button>
@@ -70,4 +77,12 @@ const HeaderBar = (props) => {
    );
 };
 
-export default HeaderBar;
+
+const mapStateToProps = state => {
+   return {
+     cart: state.cart,
+     checkout: state.checkout
+   }
+ }
+ 
+ export default connect(mapStateToProps)(HeaderBar)

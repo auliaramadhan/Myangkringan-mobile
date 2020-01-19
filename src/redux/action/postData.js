@@ -7,6 +7,17 @@ import { APP_URL } from './config'
 const url = "http://127.0.0.1:8080"
 
 
+export const postAuth = (data) => {
+   return {
+      type: 'POST_AUTH',
+      payload: axios({
+         method: 'post',
+         url: `${url}/user/registrasi`
+         , data: data
+      })
+   }
+}
+
 export const postCart = (token, data) => {
    return {
       type: 'POST_CART',

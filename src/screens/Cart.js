@@ -1,217 +1,3 @@
-// /* eslint-disable prettier/prettier */
-// import React, { Component } from 'react';
-// import {
-//     Animated,
-//     Dimensions,
-//     Image,
-//     StyleSheet,
-//     Text,
-//     TouchableOpacity,
-//     TouchableHighlight,
-//     View,
-// } from 'react-native';
-// import Item from './Component/ItemCart'
-
-// import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
-// import { Button } from 'native-base';
-
-// class App extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             listType: 'FlatList',
-//             listViewData: Array(20)
-//                 .fill('')
-//                 .map((_, i) => ({ key: `${i}`, text: `item #${i}` })),
-//             sectionListData: Array(5)
-//                 .fill('')
-//                 .map((_, i) => ({
-//                     title: `title${i + 1}`,
-//                     data: [
-//                         ...Array(5)
-//                             .fill('')
-//                             .map((_, j) => ({
-//                                 key: `${i}.${j}`,
-//                                 text: `item #${j}`,
-//                             })),
-//                     ],
-//                 })),
-//         };
-
-//         this.rowSwipeAnimatedValues = {};
-//         Array(20)
-//             .fill('')
-//             .forEach((_, i) => {
-//                 this.rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
-//             });
-//     }
-
-//     closeRow(rowMap, rowKey) {
-//         if (rowMap[rowKey]) {
-//             rowMap[rowKey].closeRow();
-//         }
-//     }
-
-//     deleteRow(rowMap, rowKey) {
-//         this.closeRow(rowMap, rowKey);
-//         const newData = [...this.state.listViewData];
-//         const prevIndex = this.state.listViewData.findIndex(
-//             item => item.key === rowKey
-//         );
-//         newData.splice(prevIndex, 1);
-//         this.setState({ listViewData: newData });
-//     }
-
-//     deleteSectionRow(rowMap, rowKey) {
-//         this.closeRow(rowMap, rowKey);
-//         const [section] = rowKey.split('.');
-//         const newData = [...this.state.sectionListData];
-//         const prevIndex = this.state.sectionListData[section].data.findIndex(
-//             item => item.key === rowKey
-//         );
-//         newData[section].data.splice(prevIndex, 1);
-//         this.setState({ sectionListData: newData });
-//     }
-
-//     onRowDidOpen = rowKey => {
-//         console.log('This row opened', rowKey);
-//     };
-
-//     onSwipeValueChange = swipeData => {
-//         const { key, value } = swipeData;
-//         this.rowSwipeAnimatedValues[key].setValue(Math.abs(value));
-//     };
-
-//     render() {
-//         return (
-//             <View style={styles.container}>
-
-//                 {this.state.listType === 'FlatList' && (
-//                     <SwipeListView
-//                         data={this.state.listViewData}
-//                         renderItem={data => (
-//                                    <Item />
-//                         )}
-//                         renderHiddenItem={(data, rowMap) => (
-//                             <View style={styles.rowBack}>
-//                                 <Text>Left</Text>
-//                                 <Button full
-//                                     onPress={() =>
-//                                         this.closeRow(rowMap, data.item.key)
-//                                     }
-//                                 >
-//                                     <Text style={styles.backTextWhite}>
-//                                         Close
-//                                     </Text>
-//                                 </Button>
-//                                 <Button full
-//                                     onPress={() =>
-//                                         this.deleteRow(rowMap, data.item.key)
-//                                     }>
-//                                         <Image
-//                                             source={require('../assets/img/logo.png')}
-//                                             style={styles.trash}
-//                                         />
-//                                 </Button>
-//                             </View>
-//                         )}
-//                         leftOpenValue={75}
-//                         rightOpenValue={-150}
-//                         previewRowKey={'0'}
-//                         previewOpenValue={-40}
-//                         previewOpenDelay={3000}
-//                         onRowDidOpen={this.onRowDidOpen}
-//                         onSwipeValueChange={this.onSwipeValueChange}
-//                     />
-//                 )}
-//             </View>
-//         );
-//     }
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         backgroundColor: 'white',
-//         flex: 1,
-//     },
-//     standalone: {
-//         marginTop: 30,
-//         marginBottom: 30,
-//     },
-//     standaloneRowFront: {
-//         alignItems: 'center',
-//         backgroundColor: '#CCC',
-//         justifyContent: 'center',
-//         height: 50,
-//     },
-//     standaloneRowBack: {
-//         alignItems: 'center',
-//         backgroundColor: '#8BC645',
-//         flex: 1,
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         padding: 15,
-//     },
-//     backTextWhite: {
-//         color: '#FFF',
-//     },
-//     rowFront: {
-//         alignItems: 'center',
-//         backgroundColor: '#CCC',
-//         borderBottomColor: 'black',
-//         borderBottomWidth: 1,
-//         justifyContent: 'center',
-//         height: 50,
-//     },
-//     rowBack: {
-//         alignItems: 'center',
-//         backgroundColor: '#DDD',
-//         flex: 1,
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         paddingLeft: 15,
-//     },
-//     backRightBtn: {
-//         alignItems: 'center',
-//         bottom: 0,
-//         justifyContent: 'center',
-//         position: 'absolute',
-//         top: 0,
-//         width: 75,
-//     },
-//     backRightBtnLeft: {
-//         backgroundColor: 'blue',
-//         right: 75,
-//     },
-//     backRightBtnRight: {
-//         backgroundColor: 'red',
-//         right: 0,
-//     },
-//     controls: {
-//         alignItems: 'center',
-//         marginBottom: 30,
-//     },
-//     switchContainer: {
-//         flexDirection: 'row',
-//         justifyContent: 'center',
-//         marginBottom: 5,
-//     },
-//     switch: {
-//         alignItems: 'center',
-//         borderWidth: 1,
-//         borderColor: 'black',
-//         paddingVertical: 10,
-//         width: Dimensions.get('window').width / 4,
-//     },
-//     trash: {
-//         height: 25,
-//         width: 25,
-//     },
-// });
-
-
-
-
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -221,6 +7,11 @@ import {
 import Item from './Component/ItemCart'
 import logo from '../assets/img/logo.png'
 import { SwipeRow } from 'react-native-swipe-list-view';
+import { connect } from 'react-redux';
+import { deleteCart } from '../redux/action/deletePutData'
+import { getCart } from '../redux/action/getData';
+import { postCheckout } from '../redux/action/postData';
+import _ from 'lodash'
 
 
 const style = StyleSheet.create({
@@ -233,16 +24,50 @@ const style = StyleSheet.create({
    },
 })
 
-const Cart = () => {
-   
+const Cart = (props) => {
+
    useEffect(() => {
       Toast.show({
          text: "swipe left to delete",
          buttonText: "Okay",
          duration: 2000
-       })
-       //dispatch
+      })
+      //dispatch
    }, [])
+
+   useEffect(() => {
+      props.dispatch(getCart(props.auth.token))
+   }, [props.cart.status])
+
+   const removeFromCart = async (id) => {
+      props.dispatch(deleteCart(props.auth.token, id))
+      console.log(props.cart.status)
+      if (props.cart.status.success) {
+         alert('data berhasil dihapus')
+      } else {
+         alert('terdapat error pada database')
+      }
+   }
+   const checkoutCart = async () => {
+      const inputs = {
+         first_name: props.profile.first_name,
+         last_name: props.profile.last_name,
+         address: props.profile.address,
+         phone: props.profile.phone,
+         total_harga: _.sumBy(props.cart.data, (v) => v.total)
+      }
+      console.log(inputs.total_harga)
+      if (!inputs.total_harga) {
+         return alert('please fill you cart first')
+      }
+      await props.dispatch(postCheckout(props.auth.token, inputs))
+      // props.history.push('/store')
+      if (props.checkout.status.success) {
+         props.dispatch(getCart(props.auth.token))
+         props.navigation.navigate.goBack();
+      }
+   }
+
 
    return (
       <Container>
@@ -250,19 +75,25 @@ const Cart = () => {
             <Item />
             <Item />
             <Item />
-            <SwipeRow rightOpenValue={-75}>
-               <View style={style.standaloneRowBack} >
-                  <View></View>
-                  <View style={{height:'auto'}}>
-                  <Button icon danger style={{height:'100%', padding:0}}>
-                     <Icon name='trash' type='FontAwesome' />
-                  </Button>
-                  </View>
-               </View>
-            <Item />
-            </SwipeRow>
+            {props.cart.data &&
+               props.cart.data.map((v, i) =>
+                  <SwipeRow rightOpenValue={-75} key={i}>
+                     <View style={style.standaloneRowBack} >
+                        <View></View>
+                        <View style={{ height: 'auto' }}>
+                           <Button icon danger style={{ height: '100%', padding: 0 }}
+                              onPress={() => removeFromCart(v.id)}>
+                              <Icon name='trash' type='FontAwesome' />
+                           </Button>
+                        </View>
+                     </View>
+                     <Item data={v} />
+                  </SwipeRow>
+               )}
 
-            <Button iconLeft block rounded success>
+            <Button iconLeft block rounded success
+            onPress={checkoutCart}>
+
                <Icon name='check' type='MaterialIcons' />
                <Text>Checkout</Text>
             </Button>
@@ -271,4 +102,13 @@ const Cart = () => {
    );
 };
 
-export default Cart;
+const mapStateToProps = state => {
+   return {
+      auth: state.auth,
+      cart: state.cart,
+      checkout: state.checkout,
+      profile: state.profile,
+   }
+}
+
+export default connect(mapStateToProps)(Cart)

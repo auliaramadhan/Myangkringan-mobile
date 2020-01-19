@@ -1,8 +1,11 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, Fragment } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { Button, Container, Header, Title, Body, Item, Form, Label, Input, Text, Content, Icon, H1 } from 'native-base';
+import React, { Component, Fragment, useState } from 'react';
+import { View, StyleSheet, Image, ImageBackground } from 'react-native';
+import { Button, Container, Header, Title, Body, Item, Form, Label, Input, Text, Content, Icon, H1, Toast } from 'native-base';
 import logo from '../assets/img/logo.png'
+import { connect } from 'react-redux'
+import {getAuth} from '../redux/action/getData'
+import { postAuth } from '../redux/action/postData';
 
 const style = StyleSheet.create({
   root: {
@@ -31,10 +34,27 @@ const style = StyleSheet.create({
   }
 });
 
-export default function Login (props) {
+function Login (props) {
+  const [input, setInput] = useState({})
+
+  const postLogin = async ()=>{
+    await props.dispatch(postAuth(input))
+    if(props.auth.isSuccess) props.navigation.navigate('Home')
+    else if(props.auth.isError) Toast.show({
+      text: "Terdapat Error di database",
+      buttonText: "Okay",
+      duration: 2000
+    })
+  }
   return (
     <Container  >
-      <Content padder contentContainerStyle={{ flexGrow: 1 }}>
+      <ImageBackground
+        source={{
+          uri:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTDVZ7pR2LOUs8VBrwetNHIo3lYL9xzEtLr2UUtbKu_RGZDBGgH',
+        }}
+        style={{flex:1,}}>
+      <Content padder contentContainerStyle={{ flexGrow: 1, backgroundColor:'fff', opacity:1 }}>
         <View style={style.title}>
           <Image source={logo} style={{ height: 150 }} resizeMode='contain' />
         </View>
@@ -43,19 +63,25 @@ export default function Login (props) {
           <Label style={style.textmiddlePage} >Username</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
             <Input placeholder="Username"
-              style={{ textAlign: 'center' }} />
+              style={{ textAlign: 'center' }} 
+              value={input.username}
+              onChangeText={(e)=>setInput({...input,username:e})}
+              />
           </Item>
           <Label style={style.textmiddlePage}>Password</Label>
           <Item rounded last style={{ marginBottom: 40 }}>
             <Input secureTextEntry={true} placeholder="Password"
-              style={{ textAlign: 'center' }} />
+              style={{ textAlign: 'center' }} 
+              value={input.password}
+              onChangeText={(e)=>setInput({...input,password:e})}
+              />
           </Item>
 
           <Button rounded bordered block style={{ paddingBottom: 4, marginHorizontal: 50 }}>
             <Text> Login </Text>
           </Button>
-          <Button block dark transparent
-            style={{ marginTop: 20 }}><Text> Forgot Password </Text>
+          <Button block primary rounded 
+            style={{ marginTop: 20, marginHorizontal: 30 }}><Text> Forgot Password </Text>
           </Button>
         </Form>
         <Button block primary transparent
@@ -63,6 +89,16 @@ export default function Login (props) {
           style={{ marginTop: 'auto' }}><Text> Dont have Account? Sign Here </Text>
         </Button>
       </Content>
+      </ImageBackground>
     </Container>
   );
 }
+
+const mapStateToProps = state => {
+
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Login)

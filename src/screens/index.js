@@ -7,6 +7,7 @@ import Login from './Login';
 import MyOrder from './MyOrder';
 import Cart from './Cart';
 import Search from './Search';
+import Splash from './Splash';
 import ByRestaurant from './Restaurant/ByRestaurant';
 
-export {Profile, Restaurant, Register, DetailProduct, Home, Login, MyOrder, Cart, ByRestaurant, Search};
+export {Profile, Restaurant, Register, DetailProduct, Home, Login, MyOrder, Cart, ByRestaurant, Search,Splash};

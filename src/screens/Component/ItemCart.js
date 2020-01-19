@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import {
   ListItem,
@@ -16,12 +17,16 @@ import {
 } from 'native-base';
 import logo from '../../assets/img/logo.png';
 
-const Review = () => {
+const Review = (props) => {
+  const [qty, setQty] = useState(props.data.qty)
   return (
     <ListItem thumbnail style={{ backgroundColor: '#fff' }}>
-      <Thumbnail source={logo} />
+      <Thumbnail
+        source={{
+          uri: 'http://localhost:8080'.concat(props.data.image),
+      }} />
       <Body>
-        <Text>Nama barang</Text>
+        <Text>{props.data.name}</Text>
         <Row
           style={{
             alignSelf:'flex-end',
@@ -45,8 +50,9 @@ const Review = () => {
         </Row>
       </Body>
       <Right>
+        <Text>Total</Text>
         <Text>IDR</Text>
-        <Text>17.000</Text>
+        <Text>{(props.data.total || 0)}</Text>
       </Right>
     </ListItem>
   );

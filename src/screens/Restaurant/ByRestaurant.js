@@ -8,40 +8,52 @@ import Thumbnail from './Thumbnail'
 import logo from '../../assets/img/logo.png'
 
 import ListProduct from '../Component/ListProduct';
+import { connect } from 'react-redux';
+import { getRestaurants } from '../../redux/action/getData';
 
 const ByRestaurant = (props) => {
    
    useEffect(() => {
-      //dispatch
+      //dispatch      
     }, [])
    return (
       <Container>
          {/* <Header nofilter nosearch name={"Restaurant"} navigation={props.navigation}  /> */}
+
          <Content padder>
          <Card style={{flex: 0}}>
          <CardItem header bordered style={{ paddingBottom: 8, paddingTop: 8 }}>
             <Body>
-                <Text>Nama Product</Text>
+                <Text> {props.navigation.state.params.data.name} </Text>
                 <Text note>
-                  <Icon name="star" style={{ color: 'gold', fontSize: 16 }} /> dad
+                {props.navigation.state.params.data.address}
                 </Text>
             </Body>
           </CardItem>
             <CardItem>
               <Body>
-                <Image source={logo} style={{height: 200, width: 200, alignSelf:'center'}}/>
+                <Image source={{
+                  uri:"http://localhost:8080" + props.navigation.state.params.data.logo
+                }} style={{height: 200, width: 200, alignSelf:'center'}}/>
                 <Text>
-                  //Your text here
+                  {props.navigation.state.params.data.desc}
                 </Text>
               </Body>
             </CardItem>
           </Card>
 
-          <ListProduct navigation={props.navigation} />
+          <ListProduct navigation={props.navigation} 
+          query={{byRestaurant:props.navigation.state.params.data.id}} />
          </Content>
          {/* <Footer /> */}
       </Container>
    );
 };
 
-export default ByRestaurant;
+const mapStateToProps = state => {
+  return {
+    restaurants: state.restaurants
+  }
+}
+
+export default connect(mapStateToProps)(ByRestaurant)

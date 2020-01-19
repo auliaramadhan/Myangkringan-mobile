@@ -10,6 +10,7 @@ import logo from '../../assets/img/logo.png'
 
 import Footer from '../Component/Footer'
 import Header from '../Component/Header'
+import { connect } from 'react-redux';
 
 const Restaurant = (props) => {
    
@@ -20,34 +21,23 @@ const Restaurant = (props) => {
       <Container>
          <Header nofilter nosearch name={"Restaurant"} navigation={props.navigation}  />
          <Content padder>
-         <Card style={{flex: 0}}>
-         <CardItem header bordered style={{ paddingBottom: 8, paddingTop: 8 }}>
-            <Body>
-                <Text>Nama Product</Text>
-                <Text note>
-                  <Icon name="star" style={{ color: 'gold', fontSize: 16 }} /> dad
-                </Text>
-            </Body>
-          </CardItem>
-            <CardItem>
-              <Body>
-                <Image source={logo} style={{height: 200, width: 200, alignSelf:'center'}}/>
-                <Text>
-                  //Your text here
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
             <List>
-               <Thumbnail data={props.restaurant} navigation={props.navigation} />
-               <Thumbnail />
-               <Thumbnail />
-               <Thumbnail />
+              {props.restaurants.data && 
+              props.restaurants.data.map((v,i)=>
+               <Thumbnail 
+               data={v} 
+               navigation={props.navigation} />
+               )}
             </List>
          </Content>
          {/* <Footer /> */}
       </Container>
    );
 };
+const mapStateToProps = state => {
+  return {
+    restaurants: state.restaurants
+  }
+}
 
-export default Restaurant;
+export default connect(mapStateToProps)(Restaurant)
