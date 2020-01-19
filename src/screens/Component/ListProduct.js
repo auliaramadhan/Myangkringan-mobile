@@ -24,11 +24,11 @@ const style = StyleSheet.create({
   },
 })
 
-const ListProduct = ({ query, dispatch,auth,...props}) => {
+const ListProduct = ({ query, dispatch, auth, ...props }) => {
   const [modalVisible, setModalVisible] = useState(false)
   // const [query, setQuery] = useState(props.query)
   const [dataModal, setDataModal] = useState({})
-	const [qty, setQty] = useState(0)
+  const [qty, setQty] = useState(0)
 
 
   useEffect(() => {
@@ -40,51 +40,57 @@ const ListProduct = ({ query, dispatch,auth,...props}) => {
     if (dataModal && !qty) {
       alert('Minimal jumlah barang 1');
       return;
-		}
+    }
     await dispatch(postCart(auth.token,
       { id_item: dataModal.id, qty: qty, total: qty * dataModal.price }))
-      if (props.cart.isError) {
-				alert('terdapat error di database')
-      }else{setModalVisible(false)}
+    if (props.cart.isError) {
+      alert('terdapat error di database')
+    } else { setModalVisible(false) }
   }
-  
+
   return (
     <Fragment>
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {props.items && props.items.data.data.map ( (v,i) =>
-        <Card style={{ flexBasis: '48%', marginTop: 5 }}>
-          <CardItem header bordered button onPress={() => alert("This is Card Header")} style={style.card}>
-            <Text>{v.name}</Text>
-          </CardItem>
-          <CardItem cardBody>
-            <Button icon warning transparent style={{ position: 'absolute', top: -10, zIndex: 999 }}
-              onPress={() => props.navigation.navigate('DetailProduct',{data:v})}>
-              <Icon name='eye' type='FontAwesome' />
-            </Button>
-
-            <Button warning icon transparent style={{ position: 'absolute', right: 4, top: -10, zIndex: 999 }}
-              onPress={() => {setModalVisible(true);
-              setDataModal(v)}}>
-              <Icon name='add-circle' />
-            </Button>
-
-            
-            <Image source={{
-              uri:"http://localhost:8080".concat(v.image)
-            }} 
-            style={{ height: 120, width: null, flex: 1 }} resizeMode='contain' />
-          </CardItem>
-          <CardItem footer >
-            <Body>
-              <Button transparent>
-                <Icon active name="star" color='gold' />
-                <Text> {v.rating} </Text>
+        {props.items.data.data && props.items.data.data.map((v, i) =>
+          <Card style={{ flexBasis: '48%', marginTop: 5 }}>
+            <CardItem header bordered style={style.card}>
+              <Text>{v.name}</Text>
+            </CardItem>
+            <CardItem cardBody>
+              <Button icon warning transparent style={{ position: 'absolute', top: -20, zIndex: 999 }}
+                onPress={() => props.navigation.navigate('DetailProduct', { data: v })}>
+                <Icon name='eye' type='FontAwesome' />
               </Button>
-              <Text>IDR {v.price} </Text>
-            </Body>
-          </CardItem>
-        </Card>)}
+
+              <Button warning icon transparent style={{ position: 'absolute', right: 4, top: -20, zIndex: 999 }}
+                onPress={() => {
+                  setModalVisible(true);
+                  setDataModal(v)
+                }}>
+                <Icon name='add-circle' />
+              </Button>
+              <Image source={{
+                uri: "http://192.168.0.109:8080".concat(v.image)
+              }}
+                style={{ height: 120, width: null, flex: 1, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} resizeMode='contain' />
+            </CardItem>
+            <CardItem footer >
+              <Left >
+                <Icon active name="star" color='gold' style={{fontSize:12, color:'gold'}} />
+                <Text style={{fontSize:12, color:'gold'}}> {v.rating.toFixed(2)} </Text>
+                <Text style={{fontSize:12}}>IDR {v.price} </Text>
+              </Left>
+            </CardItem>
+          </Card>)}
       </View>
+      <Row style={{ flex: 1, marginTop: 5 }}>
+        <Button icon rounded warning >
+          <Icon name='arrow-left' type='MaterialCommunityIcons' />
+        </Button>
+        <Button icon rounded warning style={{ marginLeft: 'auto' }}>
+          <Icon name='arrow-right' type='MaterialCommunityIcons' />
+        </Button>
+      </Row>
 
       {/* ----------MODAL--------------- */}
       <Modal
@@ -96,69 +102,69 @@ const ListProduct = ({ query, dispatch,auth,...props}) => {
         }}>
         <View style={{ flex: 1, marginVertical: 50, backgroundColor: 'rgba(20,20,20,0.1)', justifyContent: 'center' }}>
           {dataModal &&
-          <Card style={{ width: '80%', alignSelf: 'center' }}>
-            <CardItem header style={{ alignSelf: 'center' }}>
-              <Left>
-                <Thumbnail source={logo} />
+            <Card style={{ width: '80%', alignSelf: 'center' }}>
+              <CardItem header style={{ alignSelf: 'center' }}>
+                <Left>
+                  <Thumbnail source={logo} />
+                  <Body>
+                    <Text > {dataModal.name} </Text>
+                    <Text note>Add to Cart</Text>
+                  </Body>
+                </Left>
+              </CardItem>
+              <CardItem cardBody>
                 <Body>
-                  <Text > {dataModal.name} </Text>
-                  <Text note>Add to Cart</Text>
+                  <Row
+                    style={{
+                      height: 'auto',
+                      alignSelf: 'center',
+                    }}>
+                    <Button rounded danger
+                      onPress={() => setQty(qty - 1)}>
+                      <Icon name="minus" type="MaterialCommunityIcons" />
+                    </Button>
+                    <Form style={{ marginHorizontal: 16 }}>
+                      <Item rounded style={{ width: 60, padding: 0 }}>
+                        <Input
+                          style={{ textAlign: 'center', height: 'auto' }}
+                          value={`${qty}`}
+                          numberOfLines={1}
+                          disabled
+                        />
+                      </Item>
+                    </Form>
+                    <Button rounded danger
+                      onPress={() => setQty(qty + 1)}>
+                      <Icon name="add" type="MaterialIcons" />
+                    </Button>
+                  </Row>
+                  <Text style={{ alignSelf: 'center', marginVertical: 16, fontSize: 20 }}>IDR {dataModal.price} </Text>
                 </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody>
-              <Body>
-                <Row
-                  style={{
-                    height: 'auto',
-                    alignSelf: 'center',
-                  }}>
-                  <Button rounded danger
-                  onPress={()=>setQty(qty-1)}>
-                    <Icon name="minus" type="MaterialCommunityIcons" />
-                  </Button>
-                  <Form style={{ marginHorizontal: 16 }}>
-                    <Item rounded style={{ width: 60, padding: 0 }}>
-                      <Input
-                        style={{ textAlign: 'center', height: 'auto' }}
-                        value={qty}
-                        numberOfLines={1}
-                        disabled
-                      />
-                    </Item>
-                  </Form>
-                  <Button rounded danger
-                  onPress={()=>setQty(qty+1)}>
-                    <Icon name="add" type="MaterialIcons" />
-                  </Button>
-                </Row>
-                <Text style={{ alignSelf: 'center', marginVertical: 16, fontSize: 20 }}>IDR {dataModal.price} </Text>
-              </Body>
-            </CardItem>
-            <Button block warning
-            onPress={() => postdata()}>
-              <Icon name="cart" />
-              <Text>Add To Cart</Text>
-            </Button>
-          </Card>
+              </CardItem>
+              <Button block warning
+                onPress={() => postdata()}>
+                <Icon name="cart" />
+                <Text>Add To Cart</Text>
+              </Button>
+            </Card>
           }
-       </View>
+        </View>
       </Modal>
     </Fragment>
   );
 
-}; 
+};
 
 const mapStateToProps = state => {
-   return {
-     cart: state.cart,
-     items: state.itemList,
-     auth: state.auth,
-   }
- }
- 
- export default connect(mapStateToProps)(ListProduct)
- 
+  return {
+    cart: state.cart,
+    items: state.itemList,
+    auth: state.auth,
+  }
+}
+
+export default connect(mapStateToProps)(ListProduct)
+
 
 {/* <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
         {Array(8).fill(<Card style={{ flexBasis: '48%', marginTop: 5 }}>

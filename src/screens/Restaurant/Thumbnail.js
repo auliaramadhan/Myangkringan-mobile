@@ -13,16 +13,14 @@ import logo from '../../assets/img/logo.png';
 const Thumbnail = ({navigation, data}) => {
   return (
     <ListItem thumbnail>
-      <Left>
         <ThumbnailView square source={{
-          uri: "http://localhost:8080" + data.logo
-        }} style={{paddingBottom: 5, height:150, width:150}} />
-      </Left>
+          uri: "http://192.168.0.109:8080" + data.logo
+        }} />
       <Body>
         <Text style={{fontSize:16}}>{data.name}</Text>
-        <Text note numberOfLines={2}>
+        <Text note numberOfLines={2} style={{color:'grey'}}>
           {/* alamat ln jambu no 19 a kota pare */}
-          {data.address}
+          {data.description}
         </Text>
       </Body>
       <Right>

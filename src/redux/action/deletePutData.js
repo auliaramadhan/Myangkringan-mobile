@@ -4,16 +4,28 @@ import qs from 'qs'
 import { APP_URL } from './config'
 
 
-const url = "http://127.0.0.1:8080"
+const url = "http://192.168.0.109:8080"
 
 
+export const putCart = (token, id, qty,total) => {
+   return {
+      type: 'PUT_CART',
+      payload: axios(({
+         method: 'put',
+         url: "http://192.168.0.109:8080/cart/changeitemqty/",
+         headers: { 'Authorization': 'Bearer ' + token },
+         data:{qty, total, id}
+
+      }))
+   }
+}
 export const deleteCart = (token, id) => {
    return {
       type: 'DELETE_CART',
       payload: axios(({
          method: 'delete',
-         url: "http://127.0.0.1:8080/cart/" + id,
-         headers: { 'Authorization': 'Bearer ' + token }
+         url: "http://192.168.0.109:8080/cart/" + id,
+         headers: { 'Authorization': 'Bearer ' + token },
       }))
    }
 }

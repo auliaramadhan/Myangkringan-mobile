@@ -11,11 +11,14 @@ import logo from '../../assets/img/logo.png'
 import Footer from '../Component/Footer'
 import Header from '../Component/Header'
 import { connect } from 'react-redux';
+import { getRestaurants } from '../../redux/action/getData';
 
 const Restaurant = (props) => {
    
    useEffect(() => {
       //dispatch
+      props.dispatch(getRestaurants(props.query))
+      
     }, [])
    return (
       <Container>
@@ -24,7 +27,8 @@ const Restaurant = (props) => {
             <List>
               {props.restaurants.data && 
               props.restaurants.data.map((v,i)=>
-               <Thumbnail 
+               <Thumbnail
+               key={i}
                data={v} 
                navigation={props.navigation} />
                )}

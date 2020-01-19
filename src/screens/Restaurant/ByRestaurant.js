@@ -24,20 +24,17 @@ const ByRestaurant = (props) => {
          <Card style={{flex: 0}}>
          <CardItem header bordered style={{ paddingBottom: 8, paddingTop: 8 }}>
             <Body>
-                <Text> {props.navigation.state.params.data.name} </Text>
+                <Text>{props.navigation.state.params.data.name} </Text>
                 <Text note>
-                {props.navigation.state.params.data.address}
+                {props.navigation.state.params.data.description}
                 </Text>
             </Body>
           </CardItem>
             <CardItem>
               <Body>
                 <Image source={{
-                  uri:"http://localhost:8080" + props.navigation.state.params.data.logo
-                }} style={{height: 200, width: 200, alignSelf:'center'}}/>
-                <Text>
-                  {props.navigation.state.params.data.desc}
-                </Text>
+                  uri:"http://192.168.0.109:8080" + props.navigation.state.params.data.logo
+                }} style={{height: 200, width: 200, alignSelf:'center', borderRadius:40}}/>
               </Body>
             </CardItem>
           </Card>

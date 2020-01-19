@@ -13,7 +13,8 @@ import {
   DetailProduct,
   MyOrder,
   Cart,
-  ByRestaurant
+  ByRestaurant,
+  Splash
 } from '../screens';
 import Search from '../screens/Search';
 
@@ -100,9 +101,18 @@ const AppStackNavigation = createStackNavigator(
     headerMode: 'none',
   },
 );
+const SplashNavigation = createStackNavigator(
+  {
+    Splash:{screen:Splash},
+  },
+  {
+    headerMode: 'none',
+  },
+);
 
 const Router = createSwitchNavigator(
   {
+    SplashNavigation,
     AuthStack,
     AppStackNavigation,
   },

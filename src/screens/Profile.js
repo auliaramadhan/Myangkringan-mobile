@@ -4,6 +4,9 @@ import { View, StyleSheet, Image } from 'react-native';
 import { Button, Container, Title, Body, Item, Form, Label, Input, Text, Content, Icon, H1, DatePicker } from 'native-base';
 import logo from '../assets/img/logo.png'
 import Header from './Component/Header'
+import { connect } from 'react-redux';
+import { getProfile } from '../redux/action/getData';
+import { postProfile } from '../redux/action/postData';
 
 const style = StyleSheet.create({
   root: {
@@ -33,16 +36,15 @@ const style = StyleSheet.create({
 });
 
 function Profile(props) {
+  const [inputs, setInputs] = useState(props.profile.data)
   const [isedit, setIsedit] = useState(false)
-  const [date, setDate] = useState(0)
 
-  useEffect(() => {
-    //dispatch
-  }, [])
-
-  const postProfile =() =>{
-    //data di post
-    setIsedit(false)
+  const postProfileInput = async() =>{
+    await props.dispatch(postProfile(props.auth.token, inputs))
+    if(props.profile.status.success) {
+      setIsedit(false)
+      props.dispatch(getProfile(props.auth.token))
+    }else if(props.profile.status.isError) alert('ada masalah di database')
   }
 
   return (
@@ -57,12 +59,18 @@ function Profile(props) {
           <Label style={style.textmiddlePage} >First Name</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
             <Input placeholder="First Name" disabled={!isedit}
-              style={{ textAlign: 'center' }} />
+              style={{ textAlign: 'center' }}
+              value={inputs.first_name}
+              onChangeText={(e) => setInputs({...inputs, first_name:e }) }
+              />
           </Item>
           <Label style={style.textmiddlePage} >Last Name</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
             <Input placeholder="Last Name" disabled={!isedit}
-              style={{ textAlign: 'center' }} />
+              style={{ textAlign: 'center' }} 
+              value={inputs.last_name}
+              onChangeText={(e) => setInputs({...inputs, last_name:e }) }
+              />
           </Item>
           <Label style={style.textmiddlePage} >Date Birth</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
@@ -76,28 +84,33 @@ function Profile(props) {
               placeHolderText="Select date of Birth"
               textStyle={{ alignSelf: 'center' }}
               placeHolderTextStyle={{ color: "#d3d3d3" }}
-              onDateChange={setDate}
+              onDateChange={(e) => setInputs({...inputs, date_of_birth:e })}
             />
           </Item>
-          <Label style={style.textmiddlePage} >City</Label>
+          <Label style={style.textmiddlePage} >ZIP Code</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
             <Input placeholder="City" disabled={!isedit}
-              style={{ textAlign: 'center' }} />
+              style={{ textAlign: 'center' }}
+              value={inputs.zip_code}
+              onChangeText={(e) => setInputs({...inputs, zip_code:e }) }
+              />
           </Item>
-          <Label style={style.textmiddlePage}>Password</Label>
+          <Label style={style.textmiddlePage}>City</Label>
           <Item rounded last style={{ marginBottom: 40 }}>
-            <Input secureTextEntry={true} placeholder="Password"
+            <Input placeholder="City" disabled={!isedit}
+            value={inputs.city_of_birth}
+            onChangeText={(e) => setInputs({...inputs, city_of_birth:e }) }
               style={{ textAlign: 'center' }} />
           </Item>
 
-          <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50, display: 'none' }}
-          onPress={postProfile} >
+          {isedit &&  <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50 }}
+          onPress={() => postProfileInput()} disabled={props.profile.isLoading} >
             <Text> Save </Text>
-          </Button>
-          <Button rounded bordered warning block style={{ paddingBottom: 4, marginHorizontal: 50, }}
+          </Button>}
+          {!isedit && <Button rounded bordered warning block style={{ paddingBottom: 4, marginHorizontal: 50, }}
           onPress={() => setIsedit(true)}>
             <Text> Edit </Text>
-          </Button>
+          </Button>}
         </Form>
       </Content>
 
@@ -105,4 +118,11 @@ function Profile(props) {
   );
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  return {
+     auth: state.auth,
+     profile: state.profile,
+  }
+}
+
+export default connect(mapStateToProps)(Profile)

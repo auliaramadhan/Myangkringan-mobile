@@ -8,6 +8,26 @@ const initialState = {
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
+    case 'POST_LOGOUT_PENDING':
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case 'POST_LOGOUT_REJECTED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+
+    case 'POST_LOGOUT_FULFILLED':
+      return {
+        ...state,
+        status: action.payload.data,
+        token: '',
+        isLoading: false,
+        isError: false,
+      };
     case 'POST_AUTH_PENDING':
       return {
         ...state,

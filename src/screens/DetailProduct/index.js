@@ -137,7 +137,7 @@ function CardProdut({data, cart, auth, dispatch}) {
         <Body>
           <Image
             source={{
-              uri: 'http://localhost:8080'.concat(data.image),
+              uri: 'http://192.168.0.109:8080'.concat(data.image),
             }}
             style={{height: 200, width: 200, alignSelf: 'center'}}
           />
@@ -155,8 +155,8 @@ function CardProdut({data, cart, auth, dispatch}) {
               <Item rounded style={{width: 60, padding: 0}}>
                 <Input
                   style={{textAlign: 'center', height: 'auto'}}
-                  numberOfLines={1}
-                  value={qty}
+                  // numberOfLines={1}
+                  value={`${qty}`}
                   disabled
                 />
               </Item>

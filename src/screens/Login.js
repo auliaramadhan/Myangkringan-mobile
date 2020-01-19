@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, Fragment, useState } from 'react';
+import React, { Component, Fragment, useState, useEffect } from 'react';
 import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { Button, Container, Header, Title, Body, Item, Form, Label, Input, Text, Content, Icon, H1, Toast } from 'native-base';
 import logo from '../assets/img/logo.png'
@@ -37,8 +37,14 @@ const style = StyleSheet.create({
 function Login (props) {
   const [input, setInput] = useState({})
 
+  useEffect(() => {
+    if (props.auth.token) {
+      props.navigation.navigate('Home')
+    } 
+  }, [])
+
   const postLogin = async ()=>{
-    await props.dispatch(postAuth(input))
+    await props.dispatch(getAuth(input))
     if(props.auth.isSuccess) props.navigation.navigate('Home')
     else if(props.auth.isError) Toast.show({
       text: "Terdapat Error di database",
@@ -47,7 +53,7 @@ function Login (props) {
     })
   }
   return (
-    <Container  >
+    <Container >
       <ImageBackground
         source={{
           uri:
@@ -61,7 +67,7 @@ function Login (props) {
 
         <Form style={{ marginBottom: 'auto' }} >
           <Label style={style.textmiddlePage} >Username</Label>
-          <Item rounded block style={{ marginBottom: 20 }} >
+          <Item rounded block style={{ marginBottom: 20,backgroundColor:'#fff' }} >
             <Input placeholder="Username"
               style={{ textAlign: 'center' }} 
               value={input.username}
@@ -69,7 +75,7 @@ function Login (props) {
               />
           </Item>
           <Label style={style.textmiddlePage}>Password</Label>
-          <Item rounded last style={{ marginBottom: 40 }}>
+          <Item rounded last style={{ marginBottom: 40, backgroundColor:'#fff' }}>
             <Input secureTextEntry={true} placeholder="Password"
               style={{ textAlign: 'center' }} 
               value={input.password}
@@ -77,7 +83,9 @@ function Login (props) {
               />
           </Item>
 
-          <Button rounded bordered block style={{ paddingBottom: 4, marginHorizontal: 50 }}>
+          <Button rounded bordered block
+          onPress={() =>postLogin() }
+          style={{ paddingBottom: 4, marginHorizontal: 50 }}>
             <Text> Login </Text>
           </Button>
           <Button block primary rounded 

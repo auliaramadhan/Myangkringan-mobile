@@ -21,6 +21,8 @@ const style = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       padding: 15,
+      marginVertical: 25,
+      elevation: 5
    },
 })
 
@@ -72,9 +74,9 @@ const Cart = (props) => {
    return (
       <Container>
          <Content padder>
+            {/* <Item />
             <Item />
-            <Item />
-            <Item />
+            <Item /> */}
             {props.cart.data &&
                props.cart.data.map((v, i) =>
                   <SwipeRow rightOpenValue={-75} key={i}>
@@ -90,10 +92,19 @@ const Cart = (props) => {
                      <Item data={v} />
                   </SwipeRow>
                )}
+            <ListItem thumbnail style={{ backgroundColor: '#fff'}}>
+               <Left>
+                  <View></View>
+               </Left>
+               <Body>
+               </Body>
+               <Right>
+                  <Text>Total : IDR {_.sumBy(props.cart.data,v=>v.total||0)} </Text>
+               </Right>
+            </ListItem>
 
             <Button iconLeft block rounded success
-            onPress={checkoutCart}>
-
+               onPress={checkoutCart}>
                <Icon name='check' type='MaterialIcons' />
                <Text>Checkout</Text>
             </Button>

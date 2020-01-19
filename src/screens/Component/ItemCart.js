@@ -16,14 +16,25 @@ import {
   Input,
 } from 'native-base';
 import logo from '../../assets/img/logo.png';
+import { putCart } from '../../redux/action/deletePutData';
+import { connect } from 'react-redux';
 
-const Review = (props) => {
-  const [qty, setQty] = useState(props.data.qty)
+const ItemCart = (props) => {
+  // const [qty, setQty] = useState(props.data.qty)
+
+  const putFromCart = async (qty) => {
+    await props.dispatch(putCart(props.auth.token, props.data.id, qty, qty*props.data.price))
+    if (props.cart.isError) alert('ada msalah di database')
+    //    alert('data berhasil diubah')
+    // } else {
+    //    alert('terdapat error pada database')
+    // }
+ }
   return (
-    <ListItem thumbnail style={{ backgroundColor: '#fff' }}>
+    <ListItem thumbnail style={{ backgroundColor: '#fff', marginVertical:5,padding:4 }}>
       <Thumbnail
         source={{
-          uri: 'http://localhost:8080'.concat(props.data.image),
+          uri: 'http://192.168.0.109:8080'.concat(props.data.image),
       }} />
       <Body>
         <Text>{props.data.name}</Text>
@@ -33,7 +44,9 @@ const Review = (props) => {
             scaleX: 0.7,
             scaleY: 0.7,
           }}>
-          <Button rounded danger>
+          <Button rounded danger
+          disabled={props.cart.isLoading}
+          onPress={()=> putFromCart(props.data.qty-1)}>
             <Icon name="minus" type="MaterialCommunityIcons" />
           </Button>
           <Form style={{ marginHorizontal: 16 }}>
@@ -41,10 +54,13 @@ const Review = (props) => {
               <Input
                 style={{ textAlign: 'center', height: 'auto' }}
                 numberOfLines={1}
+                value={`${props.data.qty}`}
               />
             </Item>
           </Form>
-          <Button rounded danger>
+          <Button rounded danger
+          disabled={props.cart.isLoading}
+          onPress={()=> putFromCart(props.data.qty+1)} >
             <Icon name="add" type="MaterialIcons" />
           </Button>
         </Row>
@@ -58,4 +74,11 @@ const Review = (props) => {
   );
 };
 
-export default Review;
+const mapStateToProps = state => {
+  return {
+     auth: state.auth,
+      cart: state.cart
+  }
+}
+
+export default connect(mapStateToProps)(ItemCart)

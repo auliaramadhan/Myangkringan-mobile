@@ -3,17 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Icon, Container, Content, Text, Row, Item, Input, Button, Header, Badge, Right, Body, Left, Title, Subtitle, ActionSheet } from 'native-base'
 import { connect } from 'react-redux';
-import { getCart } from '../../redux/action/getData';
-
-
-const style = StyleSheet.create({
-   name: {
-
-   },
-   name12: {
-
-   },
-})
+import { getCart, getProfile } from '../../redux/action/getData';
+import { postLogout } from '../../redux/action/postData';
 
 var BUTTONS = ["rating", "price", "name", "Delete", "Cancel"];
 var DESTRUCTIVE_INDEX = 3;
@@ -22,9 +13,20 @@ var CANCEL_INDEX = 4;
 const HeaderBar = (props) => {
    
    useEffect(() => {
-      props.dispatch(getCart('token'))
+      props.dispatch(getCart(props.auth.token))
     }, [props.cart.status])
+
+    useEffect(() => {
+      props.dispatch(getProfile(props.auth.token))
+   }, [])
      
+   const logOut = async() => {
+      await props.dispatch(postLogout(props.auth.token))
+      console.log(props.auth)
+      props.navigation.navigate('Login')
+      if (props.auth.status.success) {
+      } 
+   }
     
    return (
       <Header searchBar style={{ backgroundColor: '#eee' }} >
@@ -69,7 +71,7 @@ const HeaderBar = (props) => {
             </Button>
             {props.logout && 
             <Button transparent
-            onPress={()=>props.navigation.navigate('Login')}>
+            onPress={()=>logOut()}>
                <Icon name='logout' type='MaterialCommunityIcons' style={{ color: 'black' }} />
             </Button>}
          </Right>
@@ -82,6 +84,8 @@ const mapStateToProps = state => {
    return {
      cart: state.cart,
      checkout: state.checkout
+     , auth: state.auth,
+     profile: state.profile
    }
  }
  
