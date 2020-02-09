@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { getCart, getProfile } from '../../redux/action/getData';
 import { postLogout } from '../../redux/action/postData';
 
-var BUTTONS = ["rating", "price", "name", "Delete", "Cancel"];
+var BUTTONS = ["rating", "price", "name", "Cancel"];
+var VALUEBUTTONS = ["rating", "price", "name", null];
 var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
 
@@ -31,9 +32,6 @@ const HeaderBar = (props) => {
    return (
       <Header searchBar style={{ backgroundColor: '#eee' }} >
          <Left>
-            {/* <Button transparent>
-               <Icon name='arrow-back' style={{ color: 'black' }} />
-            </Button> */}
          </Left>
          <Body>
             <Title style={{ color: 'gray' }} >{props.name}</Title>
@@ -50,7 +48,8 @@ const HeaderBar = (props) => {
                    title: "Order By"
                  },
                  buttonIndex => {
-                   props.setQuery({ clicked: BUTTONS[buttonIndex] });
+                  console.log(BUTTONS[buttonIndex])
+                   props.setQuery({ order: VALUEBUTTONS[buttonIndex] });
                  }
                )}>
                <Icon name='filter' type='FontAwesome' style={{ color: 'black' }} />

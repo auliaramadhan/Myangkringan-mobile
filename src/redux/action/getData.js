@@ -5,7 +5,7 @@ import qs from 'qs'
 import { APP_URL } from './config'
 
 
-const url = "http://192.168.0.109:8080"
+const url = "http://52.91.248.206:8080"
 
 export const getAuth = (data) => {
    return {

@@ -2,9 +2,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState, Fragment, useEffect } from 'react';
-import { View, StyleSheet, Image, TouchableHighlight, Modal } from 'react-native';
+import { View, StyleSheet, Image, TouchableHighlight, Modal, FlatList, ActivityIndicator } from 'react-native';
 import {
-  Icon, Container, Content, Text, Row, Button, Badge, List, ListItem, Left, Thumbnail, Body, Right, Card, CardItem, Form, Item, Input
+  Icon, Text, Row, Button, Badge, List, ListItem, Left, Thumbnail, Body, Right, Card, CardItem, Form, Item, Input
 } from 'native-base'
 import logo from '../../assets/img/logo.png'
 import { getItems } from '../../redux/action/getData';
@@ -49,9 +49,13 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
 
   return (
     <Fragment>
-      <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {props.items.data.data && props.items.data.data.map((v, i) =>
-          <Card style={{ flexBasis: '48%', marginTop: 5 }}>
+      {/* <SafeAreaView style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}> */}
+      <FlatList
+        data={props.items.data.data}
+        contentContainerStyle={{ justifyContent: 'space-around' }}
+        numColumns={2}
+        renderItem={({ item: v }) => (
+          <Card style={{ flexBasis: '47%', marginTop: 5 }}>
             <CardItem header bordered style={style.card}>
               <Text>{v.name}</Text>
             </CardItem>
@@ -69,20 +73,23 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
                 <Icon name='add-circle' />
               </Button>
               <Image source={{
-                uri: "http://192.168.0.109:8080".concat(v.image)
+                uri: "http://52.91.248.206:8080".concat(v.image)
               }}
                 style={{ height: 120, width: null, flex: 1, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} resizeMode='contain' />
             </CardItem>
             <CardItem footer >
               <Left >
-                <Icon active name="star" color='gold' style={{fontSize:12, color:'gold'}} />
-                <Text style={{fontSize:12, color:'gold'}}> {v.rating.toFixed(2)} </Text>
-                <Text style={{fontSize:12}}>IDR {v.price} </Text>
+                <Icon active name="star" color='gold' style={{ fontSize: 12, color: 'gold' }} />
+                <Text style={{ fontSize: 12, color: 'gold' }}> {v.rating.toFixed(2)} </Text>
+                <Text style={{ fontSize: 12 }}>IDR {v.price} </Text>
               </Left>
             </CardItem>
-          </Card>)}
-      </View>
-      <Row style={{ flex: 1, marginTop: 5 }}>
+          </Card>
+        )}
+        keyExtractor={item => item.id}
+      />
+      {/* </SafeAreaView> */}
+        <Row style={{ flex: 1, marginTop: 5 }}>
         <Button icon rounded warning 
         >
           <Icon name='arrow-left' type='MaterialCommunityIcons' />
@@ -138,7 +145,7 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
                       <Icon name="add" type="MaterialIcons" />
                     </Button>
                   </Row>
-                  <Text style={{ alignSelf: 'center', marginVertical: 16, fontSize: 20 }}>IDR {dataModal.price} </Text>
+                  <Text style={{ alignSelf: 'center', marginVertical: 16, fontSize: 20 }}>IDR {dataModal.price * qty} </Text>
                 </Body>
               </CardItem>
               <Button block warning
@@ -165,32 +172,3 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps)(ListProduct)
 
-
-{/* <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {Array(8).fill(<Card style={{ flexBasis: '48%', marginTop: 5 }}>
-          <CardItem header bordered button onPress={() => alert("This is Card Header")} style={style.card}>
-            <Text>NativeBase</Text>
-          </CardItem>
-          <CardItem cardBody>
-            <Button icon warning transparent style={{ position: 'absolute', top: -10, zIndex: 999 }}
-              onPress={() => props.navigation.navigate('DetailProduct')}>
-              <Icon name='eye' type='FontAwesome' />
-            </Button>
-            <Button warning icon transparent style={{ position: 'absolute', right: 4, top: -10, zIndex: 999 }}
-              onPress={() => setModalVisible(true)}>
-              <Icon name='add-circle' />
-            </Button>
-            <Image source={logo} style={{ height: 100, width: null, flex: 1 }} resizeMode='contain' />
-          </CardItem>
-          <CardItem footer >
-            <Body>
-              <Button transparent>
-                <Icon active name="star" />
-                <Text>4 Rating</Text>
-              </Button>
-              <Text>4 Comments</Text>
-
-            </Body>
-          </CardItem>
-        </Card>)}
-      </View>  */}

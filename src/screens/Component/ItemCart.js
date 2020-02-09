@@ -34,7 +34,7 @@ const ItemCart = (props) => {
     <ListItem thumbnail style={{ backgroundColor: '#fff', marginVertical:5,padding:4 }}>
       <Thumbnail
         source={{
-          uri: 'http://192.168.0.109:8080'.concat(props.data.image),
+          uri: 'http://52.91.248.206:8080'.concat(props.data.image),
       }} />
       <Body>
         <Text>{props.data.name}</Text>

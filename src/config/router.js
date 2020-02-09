@@ -1,8 +1,8 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { Icon } from 'native-base';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {Icon} from 'native-base';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import {
   Home,
@@ -14,14 +14,15 @@ import {
   MyOrder,
   Cart,
   ByRestaurant,
-  Splash
+  Splash,
+  ChangePassword,
 } from '../screens';
 import Search from '../screens/Search';
 
 const AuthStack = createStackNavigator(
   {
-    Login: { screen: Login },
-    Register: { screen: Register },
+    Login: {screen: Login},
+    Register: {screen: Register},
   },
   {
     headerMode: 'none',
@@ -35,8 +36,12 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: Home,
       navigationOptions: {
         tabBarLabel: 'Store',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="food" type='MaterialCommunityIcons' style={{ color: tintColor }} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            name="food"
+            type="MaterialCommunityIcons"
+            style={{color: tintColor}}
+          />
         ),
       },
     },
@@ -44,8 +49,8 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: Restaurant,
       navigationOptions: {
         tabBarLabel: 'Restaurant',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="store" type='MaterialIcons' style={{ color: tintColor }} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="store" type="MaterialIcons" style={{color: tintColor}} />
         ),
       },
     },
@@ -53,8 +58,8 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: MyOrder,
       navigationOptions: {
         tabBarLabel: 'Order',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="check" type='MaterialIcons' style={{ color: tintColor }} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="check" type="MaterialIcons" style={{color: tintColor}} />
         ),
       },
     },
@@ -62,14 +67,13 @@ const BottomNavigationStack = createBottomTabNavigator(
       screen: Profile,
       navigationOptions: {
         tabBarLabel: 'Profile',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon type='FontAwesome' name="user" style={{ color: tintColor }} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon type="FontAwesome" name="user" style={{color: tintColor}} />
         ),
       },
     },
   },
   {
-
     tabBarOptions: {
       activeBackgroundColor: '#ddd',
       activeTintColor: 'chocolate',
@@ -80,9 +84,8 @@ const BottomNavigationStack = createBottomTabNavigator(
       style: {
         backgroundColor: '#fff',
         elevation: 5,
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.5,
-
       },
     },
   },
@@ -91,11 +94,11 @@ const BottomNavigationStack = createBottomTabNavigator(
 const AppStackNavigation = createStackNavigator(
   {
     BottomNavigationStack,
-    // Restaurant: { screen: Restaurant },
-    DetailProduct: { screen: DetailProduct },
-    Cart: { screen: Cart },
-    ByRestaurant: { screen: ByRestaurant },
-    Search: { screen: Search },
+    DetailProduct: {screen: DetailProduct},
+    Cart: {screen: Cart},
+    ByRestaurant: {screen: ByRestaurant},
+    Search: {screen: Search},
+    ChangePassword: {screen: ChangePassword},
   },
   {
     headerMode: 'none',
@@ -103,7 +106,7 @@ const AppStackNavigation = createStackNavigator(
 );
 const SplashNavigation = createStackNavigator(
   {
-    Splash:{screen:Splash},
+    Splash: {screen: Splash},
   },
   {
     headerMode: 'none',
@@ -112,12 +115,14 @@ const SplashNavigation = createStackNavigator(
 
 const Router = createSwitchNavigator(
   {
+    Splash: {screen: Splash},
     AuthStack,
     AppStackNavigation,
   },
   {
     headerMode: 'none',
-    initialRouteName: 'AuthStack',
+    initialRouteName: 'Splash',
+    // initialRouteName: 'AuthStack',
   },
 );
 

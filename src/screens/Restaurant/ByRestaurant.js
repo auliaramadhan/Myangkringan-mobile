@@ -33,7 +33,7 @@ const ByRestaurant = (props) => {
             <CardItem>
               <Body>
                 <Image source={{
-                  uri:"http://192.168.0.109:8080" + props.navigation.state.params.data.logo
+                  uri:"http://52.91.248.206:8080" + props.navigation.state.params.data.logo
                 }} style={{height: 200, width: 200, alignSelf:'center', borderRadius:40}}/>
               </Body>
             </CardItem>

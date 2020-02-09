@@ -40,7 +40,13 @@ function Profile(props) {
   const [isedit, setIsedit] = useState(false)
 
   const postProfileInput = async() =>{
-    await props.dispatch(postProfile(props.auth.token, inputs))
+    if (!inputs.date_of_birth) {
+      alert('please input date')
+      return;
+    }
+    const input = {...inputs}
+    input.date_of_birth= inputs.date_of_birth.toISOString().split('T')[0]
+    await props.dispatch(postProfile(props.auth.token, input))
     if(props.profile.status.success) {
       setIsedit(false)
       props.dispatch(getProfile(props.auth.token))
@@ -75,7 +81,7 @@ function Profile(props) {
           <Label style={style.textmiddlePage} >Date Birth</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
             <DatePicker disabled={!isedit}
-              defaultDate={new Date(2018, 4, 4)}
+              defaultDate={new Date(inputs.date_of_birth)}
               maximumDate={new Date(2000, 12, 31)}
               locale={"en"}
               modalTransparent={false}
@@ -87,9 +93,17 @@ function Profile(props) {
               onDateChange={(e) => setInputs({...inputs, date_of_birth:e })}
             />
           </Item>
+          <Label style={style.textmiddlePage} >Address</Label>
+          <Item rounded block style={{ marginBottom: 20 }} >
+            <Input placeholder="Address" disabled={!isedit}
+              style={{ textAlign: 'center' }}
+              value={inputs.address}
+              onChangeText={(e) => setInputs({...inputs, address:e }) }
+              />
+          </Item>
           <Label style={style.textmiddlePage} >ZIP Code</Label>
           <Item rounded block style={{ marginBottom: 20 }} >
-            <Input placeholder="City" disabled={!isedit}
+            <Input placeholder="Zip code" disabled={!isedit}
               style={{ textAlign: 'center' }}
               value={inputs.zip_code}
               onChangeText={(e) => setInputs({...inputs, zip_code:e }) }
@@ -99,9 +113,17 @@ function Profile(props) {
           <Item rounded last style={{ marginBottom: 40 }}>
             <Input placeholder="City" disabled={!isedit}
             value={inputs.city_of_birth}
-            onChangeText={(e) => setInputs({...inputs, city_of_birth:e }) }
+            onChangeText={(e) => setInputs({...inputs, city_of_birth: e }) }
               style={{ textAlign: 'center' }} />
           </Item>
+          
+          <Button transparent onPress={()=>props.navigation.navigate('ChangePassword')}>
+          <Item rounded icon last style={{ marginBottom: 40 }}  >
+            <Input placeholder="Password" disabled
+              style={{ textAlign: 'center' }} />
+            <Icon name='edit' type='FontAwesome'  />
+          </Item>
+              </Button>
 
           {isedit &&  <Button rounded success block style={{ paddingBottom: 4, marginHorizontal: 50 }}
           onPress={() => postProfileInput()} disabled={props.profile.isLoading} >

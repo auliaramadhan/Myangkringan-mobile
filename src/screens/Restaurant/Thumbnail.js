@@ -14,7 +14,7 @@ const Thumbnail = ({navigation, data}) => {
   return (
     <ListItem thumbnail>
         <ThumbnailView square source={{
-          uri: "http://192.168.0.109:8080" + data.logo
+          uri: "http://52.91.248.206:8080" + data.logo
         }} />
       <Body>
         <Text style={{fontSize:16}}>{data.name}</Text>

@@ -15,15 +15,13 @@ function Order(props) {
   
   useEffect(() => {
     props.dispatch(getCheckout(props.auth.token))
- }, [])
+ }, [props.checkout.status])
 
  const [modalVisible, setModalVisible] = useState(false)
  const showDetail = async (id) => {
     await props.dispatch(getDetailCheckout(props.auth.token, id))
     setModalVisible(true)
  }
-
-
   
   function _renderHeader(item, expanded) {
     return (

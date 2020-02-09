@@ -55,7 +55,7 @@ const DetailProduct = ({dispatch, review, navigation,auth}) => {
       await dispatch(postReview(auth.token
         ,{...inputreviews, 
         id_item: navigation.state.params.data.id }))
-      if (!review.status.success) {
+      if (!(review.status.success)) {
         alert('ada error')
       }
       setAddReview(false)
@@ -152,7 +152,7 @@ function CardProdut({data, cart, token, dispatch, back}) {
         <Body>
           <Image
             source={{
-              uri: 'http://192.168.0.109:8080'.concat(data.image),
+              uri: 'http://52.91.248.206:8080'.concat(data.image),
             }}
             style={{height: 200, width: 200, alignSelf: 'center'}}
           />

@@ -4,7 +4,7 @@ import qs from 'qs'
 import { APP_URL } from './config'
 
 
-const url = "http://192.168.0.109:8080"
+const url = "http://52.91.248.206:8080"
 
 
 export const putCart = (token, id, qty,total) => {
@@ -12,7 +12,7 @@ export const putCart = (token, id, qty,total) => {
       type: 'PUT_CART',
       payload: axios(({
          method: 'put',
-         url: "http://192.168.0.109:8080/cart/changeitemqty/",
+         url: "http://52.91.248.206:8080/cart/changeitemqty/",
          headers: { 'Authorization': 'Bearer ' + token },
          data:{qty, total, id}
 
@@ -24,7 +24,7 @@ export const deleteCart = (token, id) => {
       type: 'DELETE_CART',
       payload: axios(({
          method: 'delete',
-         url: "http://192.168.0.109:8080/cart/" + id,
+         url: "http://52.91.248.206:8080/cart/" + id,
          headers: { 'Authorization': 'Bearer ' + token },
       }))
    }

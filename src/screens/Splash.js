@@ -6,11 +6,11 @@ import {connect} from 'react-redux';
 
 const Splash = ({navigation, auth}) => {
   useEffect(() => {
-    // setTimeout(() => {
-    //   if (auth.token) {
-    //     navigation.navigate('Home')
-    //   } else navigation.navigate('Login')
-    // }, 1000);
+    setTimeout(() => {
+      if (auth.token) {
+        navigation.navigate('Home')
+      } else navigation.navigate('Login')
+    }, 1000);
   }, []);
 
   return (
