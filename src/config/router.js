@@ -115,13 +115,13 @@ const SplashNavigation = createStackNavigator(
 
 const Router = createSwitchNavigator(
   {
-    Splash: {screen: Splash},
+    SplashNavigation,
     AuthStack,
     AppStackNavigation,
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Splash',
+    initialRouteName: 'SplashNavigation',
     // initialRouteName: 'AuthStack',
   },
 );

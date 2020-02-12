@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {Component, useEffect, useState} from 'react';
-import {Container, Content, Icon, Accordion, Text, View, Label, Item, Input, Form, Button, Left, ListItem, Body, List} from 'native-base';
+import {Container, Content, Icon, Accordion, Text, View, Label, Item, Input, Form, Button, Left, ListItem, Body, List, Right} from 'native-base';
 import Header from '../Component/Header';
 import { getCheckout, getDetailCheckout } from '../../redux/action/getData';
 import { connect } from 'react-redux';
@@ -98,17 +98,29 @@ function Order(props) {
         }}>
         <View style={{ flex: 1, marginVertical: 50, backgroundColor: 'rgba(20,20,20,0.1)', justifyContent: 'center' }}>
           <List style={{backgroundColor:'#fff', padding:16}}>
+          <ListItem noIndent> 
+              <Left style={{flex:2}}>
+                  <Text> Item Name </Text>
+              </Left>
+              <Body style={{flex:1}}>
+                  <Text> Qty</Text>
+              </Body>
+              <Right style={{flex:2}}>
+                  <Text>Price</Text>
+              </Right>
+            </ListItem>
           {props.detailCheckout.data  &&
             props.detailCheckout.data.map((v,i) =>
-            <ListItem>
-              <Left>
+            <ListItem noIndent>
+              <Left style={{flex:2}}>
                   <Text> {v.name} </Text>
-                  <Text> {v.qty}X </Text>
               </Left>
-              <Body>
-                  <Text>IDR {v.total}</Text>
+              <Body style={{flex:1}}>
+                  <Text> {v.qty}X </Text>
               </Body>
-              
+              <Right style={{flex:2}}>
+                  <Text>IDR {v.total}</Text>
+              </Right>
             </ListItem>
             )}
           </List>

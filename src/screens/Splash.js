@@ -1,41 +1,40 @@
-import React, {useEffect} from 'react';
-import {View, Text, ImageBackground, Image} from 'react-native';
-import {Container} from 'native-base';
-import logo from '../assets/img/logo.png';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, ImageBackground, StatusBar, Image } from 'react-native';
+
+import image from '../assets/img/logo.png';
+// import cover from '../assets/bgCover.png';
 import {connect} from 'react-redux';
 
-const Splash = ({navigation, auth}) => {
+
+function SplashScreen(props) {
+
   useEffect(() => {
     setTimeout(() => {
-      if (auth.token) {
-        navigation.navigate('Home')
-      } else navigation.navigate('Login')
+      if (props.auth.token) {
+        props.navigation.navigate('Home')
+      }else props.navigation.navigate('Login')
     }, 1000);
-  }, []);
+  }, [props.navigation])
 
   return (
-    <Container>
-      {/* <ImageBackground
-        source={{
-          uri:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRF2vlmJuvPMJbalXCX8wN5EPcnDjhTPOBVn_IkAht02crpRv2A',
-        }}
-        style={{flex: 1}}> */}
-        <Image
-          source={logo}
-          style={{marginTop: 'auto', height: 150}}
-          resizeMode="contain"
-        />
-        <Text style={{marginTop: 'auto', fontWeight: 800}}>My Angkringan</Text>
-      {/* </ImageBackground> */}
-    </Container>
+    <ImageBackground
+      style={{ flex: 1 }}
+      source={image}
+      resizeMode='contain' >
+      <View style={{flex:1}}>
+        <Image source={image}
+        resizeMode='contain'
+          style={{ alignSelf: 'center', width:'100%', height:'100%' }} />
+      </View>
+    </ImageBackground>
   );
-};
+}
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth,
-  };
-};
+     auth: state.auth,
+  }
+}
 
-export default connect(mapStateToProps)(Splash);
+export default connect(mapStateToProps)(SplashScreen)
+// export default SplashScreen;

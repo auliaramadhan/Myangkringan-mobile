@@ -30,9 +30,9 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
   const [dataModal, setDataModal] = useState({})
   const [qty, setQty] = useState(0)
 
-  useEffect(() => {
-    dispatch(getItems(query))
-  }, [query, dispatch])
+  // useEffect(() => {
+  //   dispatch(getItems(query))
+  // }, [query, dispatch])
 
 
   const postdata = async () => {
@@ -89,7 +89,7 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
         keyExtractor={item => item.id}
       />
       {/* </SafeAreaView> */}
-        <Row style={{ flex: 1, marginTop: 5 }}>
+        {/* <Row style={{ flex: 1, marginTop: 5 }}>
         <Button icon rounded warning 
         >
           <Icon name='arrow-left' type='MaterialCommunityIcons' />
@@ -97,7 +97,7 @@ const ListProduct = ({ query, dispatch, auth, ...props }) => {
         <Button icon rounded warning style={{ marginLeft: 'auto' }}>
           <Icon name='arrow-right' type='MaterialCommunityIcons' />
         </Button>
-      </Row>
+      </Row> */}
 
       {/* ----------MODAL--------------- */}
       <Modal

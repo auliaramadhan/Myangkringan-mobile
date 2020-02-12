@@ -17,7 +17,7 @@ const style = StyleSheet.create({
       justifyContent: 'center'
    },
    inputText:{
-      marginBottom: 16,  paddingBottom:8, borderColor:'red'
+      marginBottom: 16,  paddingBottom:8, borderColor:'#dd0'
    }
 });
 
@@ -55,7 +55,6 @@ function ChangePassword(props) {
                   <Label>Enter Old Password</Label>
                   <Input
                      value={input.oldPassword}
-                     selectionColor={'#c00'}
                      secureTextEntry={true}
                      onChangeText={(e) => setInput({ ...input, oldPassword: e })}
                   />
@@ -65,7 +64,6 @@ function ChangePassword(props) {
                   <Label>Password</Label>
                   <Input
                      value={input.password}
-                     selectionColor={'#c00'}
                      secureTextEntry={true}
                      onChangeText={(e) => setInput({ ...input, password: e })}
                   />
@@ -75,14 +73,13 @@ function ChangePassword(props) {
                   <Label>Confirm Password</Label>
                   <Input
                      value={input.confirmPassword}
-                     selectionColor={'#c00'}
                      secureTextEntry={true}
                      onChangeText={(e) => setInput({ ...input, confirmPassword: e })}
                   />
                   <Icon active name='eye' />
                </Item>
 
-               <Button block rounded danger
+               <Button block rounded warning
                   onPress={postChange}
                   style={{ paddingBottom: 4, marginHorizontal: 8, backgroundColor: 'red' }}>
                   <Text style={{ color: '#fff' }}> Send </Text>

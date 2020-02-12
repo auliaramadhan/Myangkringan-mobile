@@ -17,9 +17,9 @@ const HeaderBar = (props) => {
       props.dispatch(getCart(props.auth.token))
     }, [props.cart.status,props.checkout.status])
 
-    useEffect(() => {
-      props.dispatch(getProfile(props.auth.token))
-   }, [])
+   //  useEffect(() => {
+   //    props.dispatch(getProfile(props.auth.token))
+   // }, [])
      
    const logOut = async() => {
       await props.dispatch(postLogout(props.auth.token))
